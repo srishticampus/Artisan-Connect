@@ -13,23 +13,22 @@ function NavLanding() {
           <div className="nav-buttons d-flex gap-2 align-items-center">
             
             {/* Become a Seller Dropdown */}
-            <DropdownButton variant="outline-light" title="Become a Seller" className="seller-btn">
-              <Dropdown.Item href="#/seller-login">Login</Dropdown.Item>
-              <Dropdown.Item href="#/seller-register">Register</Dropdown.Item>
+            <DropdownButton variant="outline-light" title="Become a Artisans" className="seller-btn">
+              <Dropdown.Item href="">Login</Dropdown.Item>
+              <Dropdown.Item href="">Register</Dropdown.Item>
             </DropdownButton>
-
             <ButtonGroup>
               {/* Login Dropdown */}
               <DropdownButton as={ButtonGroup} variant="outline-light" title="Login" className="login-btn">
-              <Dropdown.Item href="#/signup/customer"><Link to="/user/login">User</Link></Dropdown.Item>
-                <Dropdown.Item href="#/login/delivery-partner">Delivery Partner</Dropdown.Item>
-                <Dropdown.Item href="#/login/admin">Administrator</Dropdown.Item>
+              <Dropdown.Item href=""><Link to="/user/login">Buyer</Link></Dropdown.Item>
+                <Dropdown.Item href="">Delivery Agents</Dropdown.Item>
+                <Dropdown.Item href="">Administrator</Dropdown.Item>
               </DropdownButton>
 
               {/* Sign Up Dropdown */}
               <DropdownButton as={ButtonGroup} variant="light" title="Sign Up" className="signup-btn">
-              <Dropdown.Item href=""><Link to="/user/register">User</Link></Dropdown.Item>
-                <Dropdown.Item href="#/signup/delivery-partner">Delivery Partner</Dropdown.Item>
+              <Dropdown.Item href=""><Link to="/user/register">Buyer</Link></Dropdown.Item>
+                <Dropdown.Item href="">Delivery Agents</Dropdown.Item>
               </DropdownButton>
             </ButtonGroup>
 

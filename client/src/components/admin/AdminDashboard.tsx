@@ -9,6 +9,7 @@ import {
   AlertCircle,
   CheckCircle
 } from 'lucide-react';
+import AdminSidebar from './AdminSidebar';
 
 const AdminDashboard = () => {
   const stats = [
@@ -27,6 +28,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="ml-64 p-8">
+      <AdminSidebar />
       <h1 className="text-2xl font-bold mb-8">Dashboard Overview</h1>
 
       {/* Stats Grid */}
@@ -73,11 +75,10 @@ const AdminDashboard = () => {
                     <td className="py-3 px-4">{order.id}</td>
                     <td className="py-3 px-4">{order.customer}</td>
                     <td className="py-3 px-4">
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        order.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                        order.status === 'Processing' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
+                      <span className={`px-2 py-1 rounded-full text-xs ${order.status === 'Completed' ? 'bg-green-100 text-green-800' :
+                          order.status === 'Processing' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-gray-100 text-gray-800'
+                        }`}>
                         {order.status}
                       </span>
                     </td>
