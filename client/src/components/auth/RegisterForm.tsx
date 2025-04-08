@@ -1,158 +1,207 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
+    address: '',
     email: '',
+    phoneNumber: '',
+    photo: '',
     password: '',
     confirmPassword: '',
+    agree: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle registration logic here
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+    if (type === 'checkbox') {
+      setFormData({ ...formData, [name]: checked });
+    } else if (type === 'file') {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const validateForm = () => {
+    const newErrors = {};
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{6,}$/;
+
+    if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
+    if (!formData.address.trim()) newErrors.address = 'Address is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    if (!formData.phoneNumber.trim()) newErrors.phoneNumber = 'Phone number is required';
+    if (!formData.photo) newErrors.photo = 'Photo is required';
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (!passwordRegex.test(formData.password)) {
+      newErrors.password =
+        'Password must be at least 6 characters, include a special character, a number, and a capital letter';
+    }
+
+    if (formData.confirmPassword !== formData.password) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    if (!formData.agree) {
+      newErrors.agree = 'You must agree to the terms and conditions';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log('Form submitted', formData);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Create your account
-        </h2>
-      </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto w-full">
+        <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-8">Create your account</h2>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-                Full Name
-              </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  required
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
+        <form onSubmit={handleSubmit} noValidate className="bg-white p-8 rounded-lg shadow-md grid md:grid-cols-2 gap-6">
+          {/* Full Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Full Name</label>
+            <input
+              name="fullName"
+              type="text"
+              value={formData.fullName}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
+            />
+            {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
+          </div>
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
-              </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
+          {/* Address */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Address</label>
+            <textarea
+              name="address"
+              rows={2}
+              value={formData.address}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
+            ></textarea>
+            {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
+          </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
-                  >
-                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                  </button>
-                </div>
-              </div>
-            </div>
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <input
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
+            />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          </div>
 
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                Confirm Password
-              </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-            </div>
+          {/* Phone Number */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+            <input
+              name="phoneNumber"
+              type="tel"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
+            />
+            {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
+          </div>
 
-            <div>
+          {/* Photo */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Photo</label>
+            <input
+              name="photo"
+              type="file"
+              accept="image/*"
+              onChange={handleChange}
+              className="mt-1 block w-full text-sm"
+            />
+            {errors.photo && <p className="text-red-500 text-sm">{errors.photo}</p>}
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                value={formData.password}
+                onChange={handleChange}
+                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500 pr-10"
+              />
               <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-2 flex items-center text-gray-500"
               >
-                Create Account
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
-          </form>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Already have an account?</span>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <a
-                href="/login"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100"
-              >
-                Sign in
-              </a>
-            </div>
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </div>
-        </div>
+
+          {/* Confirm Password */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input
+              name="confirmPassword"
+              type={showPassword ? 'text' : 'password'}
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
+            />
+            {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+          </div>
+
+          {/* Agree Terms - full width */}
+          <div className="md:col-span-2 flex items-center">
+            <input
+              name="agree"
+              type="checkbox"
+              checked={formData.agree}
+              onChange={handleChange}
+              className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+            />
+            <label className="ml-2 block text-sm text-gray-900">
+              I agree to the terms and conditions
+            </label>
+          </div>
+          {errors.agree && <p className="text-red-500 text-sm md:col-span-2">{errors.agree}</p>}
+
+          {/* Submit - full width */}
+          <div className="md:col-span-2">
+            <button
+              type="submit"
+              className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 shadow"
+            >
+              Register
+            </button>
+          </div>
+
+          {/* Login Link */}
+          <div className="md:col-span-2 text-center text-sm">
+            Already have an account?{' '}
+            <a href="/login" className="text-indigo-600 hover:underline">
+              Login Now
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   );
