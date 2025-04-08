@@ -1,63 +1,84 @@
-import React from 'react'
-import { Button, ButtonGroup, Navbar, Carousel, Container } from "react-bootstrap";
+import { Button, ButtonGroup, Navbar, Carousel } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FaGooglePlay, FaApple, FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
+import hero1 from "../../assets/hero1.jpg";
+import hero2 from "../../assets/hero2.jpg";
+import hero3 from "../../assets/hero3.jpg";
+import hero4 from "../../assets/hero4.jpg";
+import hero5 from "../../assets/hero5.jpg";
+import hero6 from "../../assets/hero6.jpg";
+import feature1 from "../../assets/feature1.jpg";
+import feature2 from "../../assets/feature2.jpg";
+import feature3 from "../../assets/feature3.jpg";
+import "./LandingPage.css";
+import NavLanding from "./NavLanding";
+import Footer from "../footer/Footer"
 
-
-function LandingPage() {
+export default function LandingPage() {
   return (
-<div className="bg-white text-dark min-vh-100 px-2" style={{ scrollBehavior: "smooth", fontFamily: 'Segoe UI, sans-serif', overflowX: "hidden" }}>
+    <div className="landing-page">
       {/* Navbar */}
-      <Navbar className="shadow-sm px-5 py-3 w-100 d-flex justify-content-between align-items-center mx-0">
-        <Navbar.Brand href="#" style={{ color: "#7a5c3e", fontWeight: "bold", fontSize: "2rem" }}>ArtisanConnect</Navbar.Brand>
-        <div className="d-flex gap-3 align-items-center">
-          <Button variant="outline-success" className="rounded-pill px-4" style={{borderColor:"#5e4b3c", color: "#5e4b3c", fontWeight: "500" }}>Become a Seller</Button>
-          <ButtonGroup>
-            <Button variant="outline-secondary" className="rounded-start-pill px-3" style={{fontWeight: "500" }}>Login</Button>
-            <Button variant="primary" className="rounded-end-pill px-3" style={{ borderColor: "#bfa98d", fontWeight: "500" }}>Sign Up</Button>
-          </ButtonGroup>
-        </div>
-      </Navbar>
+      <NavLanding/>
 
-      {/* Description Section */}
-      <section className="container py-5">
+    
+
+{/* Description Section */}
+      <section className="description-section">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="lead text-center" style={{ color: "#5e4b3c", fontSize: "25px", maxWidth: "900px", margin: "0 auto" }}>
-            <strong>At Artisans Connect</strong>, we bridge the gap between traditional craftsmanship and modern convenience by bringing local art and handmade products straight from talented artisans to your fingertips. Whether you're searching for authentic pottery, handwoven textiles, or unique home décor, our platform makes it easy to explore and support your region’s hidden gems. With just a few clicks, customers can discover their favorite local creations, celebrate cultural heritage, and empower communities — all while enjoying the ease of online shopping.
+          <p className="description-text">
+            <strong>At Artisans Connect</strong>, we bridge the gap between traditional craftsmanship and modern convenience by bringing local art and handmade products straight from talented artisans to your fingertips.
           </p>
         </motion.div>
       </section>
 
-
-{/* CTA Section */}
-      <section className="text-center py-5" style={{ backgroundColor: "#f0ebe1" }}>
-        <h2 className="h4 fw-bold mb-3" style={{ color: "#7a5c3e" }}>Download the App</h2>
-        <div className="d-flex justify-content-center gap-3 flex-wrap">
-          <Button variant="outline-dark" className="d-flex align-items-center gap-2 px-3 py-2 rounded-pill">
-            <FaGooglePlay /> Google Play
-          </Button>
-          <Button variant="outline-dark" className="d-flex align-items-center gap-2 px-3 py-2 rounded-pill">
-            <FaApple /> App Store
-          </Button>
+      {/* Features Section */}
+      <section className="features-section">
+        <h2 className="features-title">Why Choose ArtisanConnect?</h2>
+        <div className="feature-cards">
+          <div className="feature-card">
+            <img src={feature1} alt="Handmade Quality" className="feature-img" />
+            <h3>Handmade Quality</h3>
+            <p>Every product is crafted with care by skilled artisans.</p>
+          </div>
+          <div className="feature-card">
+            <img src={feature2} alt="Fair Trade" className="feature-img" />
+            <h3>Fair Trade</h3>
+            <p>We ensure artisans receive fair pricing for their work.</p>
+          </div>
+          <div className="feature-card">
+            <img src={feature3} alt="Local & Sustainable" className="feature-img" />
+            <h3>Local & Sustainable</h3>
+            <p>Support eco-friendly and locally sourced products.</p>
+          </div>
         </div>
       </section>
 
-      {/* Social Media Strip */}
-      <section className="text-center py-3" style={{ backgroundColor:"#e7e1d4" }}>
-        <div className="d-flex justify-content-center gap-4">
-          <a href="#" className="text-dark fs-5"><FaInstagram /></a>
-          <a href="#" className="text-dark fs-5"><FaFacebookF /></a>
-          <a href="#" className="text-dark fs-5"><FaTwitter /></a>
+{/* CTA Section 
+      <section className="cta-section">
+        <h2>Download the App</h2>
+        {/* <div className="cta-buttons">
+          <Button variant="light" className="cta-btn d-flex align-items-center justify-content-center">
+            <FaGooglePlay className="cta-icon" /> Google Play
+          </Button>
+          <Button variant="light" className="cta-btn d-flex align-items-center justify-content-center">
+            <FaApple className="cta-icon" /> App Store
+          </Button>
         </div>
-        <p className="mt-2 mb-0 small" style={{ color: "#7a5c3e" }}>Follow us on social media</p>
       </section>
+*/}
+      {/* Social Media Section */}
+      <section className="social-section">
+        <div className="social-icons">
+          <a href="#"><FaInstagram /></a>
+          <a href="#"><FaFacebookF /></a>
+          <a href="#"><FaTwitter /></a>
+        </div>
+      </section>
+      <Footer/>
     </div>
-
-  )
+  );
 }
-
-export default LandingPage
