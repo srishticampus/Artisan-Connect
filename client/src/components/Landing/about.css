@@ -1,0 +1,61 @@
+html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .about-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: #312e81; /* Indigo-900 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .about-card-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .about-card {
+    max-width: 768px;
+    width: 100%;
+    background-color: #f8fafc; /* soft white */
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+.about-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #4338ca; /* Indigo-700 */
+  }
+  
+  .about-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .bottom-strip {
+    background-color: #e0e7ff; /* Indigo-100 */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .bottom-strip {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
