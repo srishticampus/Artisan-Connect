@@ -1,29 +1,17 @@
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
+const express=require('express')
+const bodyParser=require('body-parser')
+const db=require('./dbConnection')
+const app=express()
+const cors=require('cors')
 
-const cors = require("cors");
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+app.use(express.static(`${__dirname}/upload`));
 
-require("dotenv").config();
+app.use(cors())
+const route=require('./routes')
+app.use('/atresian_marketplace',route)
 
-const route = require("./route");
-
-
-const PORT = process.env.PORT || 5050;
-
-app.use(cors());
-app.use(express.json()); // This must come before routes!
-app.use(express.urlencoded({ extended: true }));
-
-app.use("/", route);
-
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+app.listen(4004,()=>{
+    console.log("Server created successfully at 4004");
 })
-  .then(() => console.log("MongoDB Connected Successfully"))
-  .catch(err => console.error("MongoDB Connection Error:", err));
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
