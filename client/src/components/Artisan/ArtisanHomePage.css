@@ -1,0 +1,144 @@
+.artisan-home {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fafafa;
+    color: #333;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background-color: #f2f4ff;
+    padding: 60px 0;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    color: #3f3d56;
+    font-weight: 700;
+  }
+  
+  .hero-subtitle {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .hero-img {
+    width: 100%;
+    border-radius: 20px;
+  }
+  
+  /* Products Section */
+  .products-section {
+    padding: 60px 0;
+    background-color: #fff;
+  }
+  
+  .section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #222;
+  }
+  
+  .product-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-title {
+    color: indigo;
+    font-weight: 600;
+  }
+  
+  /* Insights Section */
+  .insights-section {
+    background-color: #fef9f5;
+    padding: 60px 0;
+  }
+  
+  .insight-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+  }
+  
+  .insight-box:hover {
+    transform: scale(1.05);
+  }
+  
+  .insight-box h3 {
+    font-size: 2rem;
+    color: #3f3d56;
+  }
+  
+  .insight-box p {
+    color: #666;
+    margin-top: 8px;
+  }
+
+.steps{
+  background-color:#ece2f9 ;
+  border-radius: 15px;
+}
+
+  .meet-artisans-section {
+    background-color: #fefaff;
+    padding: 70px 0;
+  }
+  
+  .artisan-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+  
+  .artisan-card:hover {
+    transform: translateY(-8px);
+  }
+  
+  .artisan-img {
+    height: 180px;
+    width: 170px;
+    object-fit: cover;
+    border-radius: 50% / 60%;
+    margin: 20px auto 0;
+    display: block;
+  }
+  
+  
+  .artisan-name {
+    font-size: 1.2rem;
+    color: indigo;
+    margin-top: 15px;
+    font-weight: 600;
+  }
+  
+  .artisan-expertise {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .view-products-btn {
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: 500;
+    color: indigo;
+    border-color: indigo;
+  }
+  
+  .view-products-btn:hover {
+    background-color: indigo;
+    color: white;
+  }
+  

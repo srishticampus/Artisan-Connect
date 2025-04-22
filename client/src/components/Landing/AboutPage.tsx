@@ -1,39 +1,41 @@
 import React from "react";
 import "./about.css";
+import bannerImage from "../../assets/aboutus-banner.jpg"; // Background image
+import teamImage from "../../assets/team.jpg"; // Optional image
+import NavLanding from "./NavLanding";
+import Footer from "../footer/Footer";
 
 export default function AboutPage() {
   return (
-    <div className="about-page">
-      <div className="about-card-container">
-        <div className="about-card">
-          <h1 className="about-title">About Us</h1>
-          <p className="about-description">
-            Artisans Connect is a platform dedicated to empowering local
-            artisans by bridging the gap between traditional craftsmanship and
-            modern markets. We believe in the beauty of handmade goods and the
-            value they bring to our culture and economy. Our mission is to
-            provide artisans with the tools, visibility, and support they need
-            to thrive in today's competitive world.
-          </p>
-          <p className="about-description">
-            Through Artisans Connect, we aim to preserve indigenous art forms
-            while enabling artisans to expand their reach beyond local
-            boundaries. By combining technology with tradition, we create
-            meaningful connections between creators and customers, ensuring
-            every product tells a story of skill, passion, and heritage.
-          </p>
+    < >
+    <NavLanding/>
+    <div className="aboutus-wrapper">
+      {/* Hero Section */}
+      <section className="aboutus-hero">
+        <div className="hero-overlay">
+          <h1 className="hero-heading">About Us</h1>
         </div>
-      </div>
+      </section>
 
-      <div className="bottom-strip">
-        <div className="about-item">Founded in 2020</div>
-        <div className="about-item">
-          Headquarters: Thiruvananthapuram, Kerala
+      {/* Description Section */}
+      <section className="aboutus-description-section">
+        <div className="description-card">
+          <h2>Who We Are</h2>
+          <p>
+            We are a passionate team committed to creating outstanding digital
+            experiences. Our mission is to combine innovation and creativity to
+            build solutions that empower individuals and businesses alike.
+          </p>
+          <p>
+            With a focus on design, technology, and customer-centric values, we
+            take pride in delivering services that are both meaningful and
+            impactful.
+          </p>
+          <img src={teamImage} alt="Our Team" className="description-image" />
         </div>
-        <div className="about-item">
-          Empowering People, Delivering Excellence
-        </div>
-      </div>
+      </section>
+      <Footer/>
     </div>
+    </>
   );
 }

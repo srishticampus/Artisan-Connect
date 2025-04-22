@@ -1,29 +1,22 @@
 const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
-
+const bodyParser = require("body-parser");
 const cors = require("cors");
+const db = require("./dbConnection");
+const route = require("./routes");
 
-require("dotenv").config();
+const app = express();
 
-const route = require("./route");
-
-
-const PORT = process.env.PORT || 5050;
-
+// Middleware
 app.use(cors());
-app.use(express.json()); // This must come before routes!
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static(`${__dirname}/upload`));
 
-app.use("/", route);
+// Routes
+app.use("/atrisan_connect", route);
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log("MongoDB Connected Successfully"))
-  .catch(err => console.error("MongoDB Connection Error:", err));
-
+// Start Server
+const PORT = 4004;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running successfully on port ${PORT}`);
 });

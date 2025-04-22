@@ -1,22 +1,29 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import NavLanding from "../Landing/NavLanding";
+import axiosInstance from "../../BaseApi/Baseurl";
+import Footer from "../footer/Footer";
 
 function DeliveryAgentRegistration() {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: "",
-    address: "",
+    name: "",
+    housename: "",
     email: "",
-    phoneNumber: "",
-    age: "",
-    gender: "",
-    zone: "",
-    vehicleRegNumber: "",
-    photo: "",
-    licenseFile: null,
+    city: "",
+    pincode: "",
+    contact: "",
+    district: "",
     password: "",
-    confirmPassword: "",
+    // confirmPassword: "",
+    age: "",
+    aadhar: "",
+    licence: null,
+    vehicleRegNumber: "",
+    // image: null,
     agree: false,
   });
 
@@ -36,21 +43,23 @@ function DeliveryAgentRegistration() {
   const validateForm = () => {
     const newErrors = {};
     const passwordRegex =
-      /^(?=.[A-Z])(?=.\d)(?=.[!@#$%^&()_+[\]{};':"\\|,.<>/?]).{6,}$/;
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{6,}$/;
 
-    if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
-    if (!formData.address.trim()) newErrors.address = "Address is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    if (!formData.phoneNumber.trim())
-      newErrors.phoneNumber = "Phone number is required";
-    if (!formData.photo) newErrors.photo = "Photo is required";
+    if (!formData.name.trim()) newErrors.name = "name is required";
+    if (!formData.housename.trim())
+      newErrors.housename = "House name is required";
+    if (!formData.city.trim()) newErrors.city = "City is required";
+    if (!formData.district.trim()) newErrors.district = "District is required";
+    if (!formData.pincode.trim()) newErrors.pincode = "Pincode is required";
+    if (!formData.contact.trim())
+      newErrors.contact = "Contact number is required";
     if (!formData.age.trim()) newErrors.age = "Age is required";
-    if (!formData.gender) newErrors.gender = "Gender is required";
-    if (!formData.zone.trim()) newErrors.zone = "Zone is required";
+    if (!formData.aadhar.trim()) newErrors.aadhar = "Aadhar is required";
+    if (!formData.licence) newErrors.licence = "License file is required";
     if (!formData.vehicleRegNumber.trim())
       newErrors.vehicleRegNumber = "Vehicle registration number is required";
-    if (!formData.licenseFile)
-      newErrors.licenseFile = "License file is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    // if (!formData.image) newErrors.image = 'Photo is required';
 
     if (!formData.password) {
       newErrors.password = "Password is required";
@@ -59,9 +68,9 @@ function DeliveryAgentRegistration() {
         "Password must be at least 6 characters, include a special character, a number, and a capital letter";
     }
 
-    if (formData.confirmPassword !== formData.password) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
+    // if (formData.confirmPassword !== formData.password) {
+    //   newErrors.confirmPassword = 'Passwords do not match';
+    // }
 
     if (!formData.agree) {
       newErrors.agree = "You must agree to the terms and conditions";
@@ -71,316 +80,175 @@ function DeliveryAgentRegistration() {
     return Object.keys(newErrors).length === 0;
   };
 
-const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted", formData);
+      const formPayload = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formPayload.append(key, value);
+      });
+
+      try {
+        const res = await axiosInstance.post("/registerdelivery", formPayload, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(res, "rwe");
+
+        if (res.data.status === 200) {
+          alert("Registered successfully!");
+          navigate("/deliveryagent/login");
+        } else if (res.data.status === 400) {
+          alert("email id or aadhar number is already exist");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error during registration");
+      }
     }
   };
 
   return (
-    <div>
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto w-full">
-          <h2 className="text-center text-3xl font-extrabold text-gray-900 mb-8">
-            Create your account
-          </h2>
+    <>
+      <NavLanding />
+      <div className="min-h-screen bg-gray-100 flex justify-center py-2 px-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-4 rounded-md shadow-md max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          <h4 className=" font-bold text-center col-span-2">
+            Delivery Agent Registration
+          </h4>
 
-          <form
-            onSubmit={handleSubmit}
-            noValidate
-            className="bg-white p-8 rounded-lg shadow-md grid md:grid-cols-2 gap-6"
-          >
-            {/* Full Name */}
-            <div>
+          {/* Input fields */}
+          {[
+            { label: "Name", name: "name" },
+            { label: "House Name", name: "housename" },
+            { label: "Email", name: "email", type: "email" },
+            { label: "Contact", name: "contact", type: "tel" },
+            { label: "City", name: "city" },
+            { label: "District", name: "district" },
+            { label: "Pincode", name: "pincode" },
+            { label: "Age", name: "age" },
+            { label: "Aadhar", name: "aadhar" },
+            { label: "Vehicle Reg. Number", name: "vehicleRegNumber" },
+          ].map(({ label, name, type = "text" }) => (
+            <div key={name}>
               <label className="block text-sm font-medium text-gray-700">
-                Full Name
+                {label}
               </label>
               <input
-                name="fullName"
-                type="text"
-                value={formData.fullName}
+                type={type}
+                name={name}
+                value={formData[name]}
                 onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
+                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm"
               />
-              {errors.fullName && (
-                <p className="text-red-500 text-sm">{errors.fullName}</p>
+              {errors[name] && (
+                <p className="text-red-500 text-sm">{errors[name]}</p>
               )}
             </div>
+          ))}
 
-            {/* Address */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Address
-              </label>
-              <textarea
-                name="address"
-                rows={2}
-                value={formData.address}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
-              ></textarea>
-              {errors.address && (
-                <p className="text-red-500 text-sm">{errors.address}</p>
-              )}
-            </div>
+          {/* Photo Upload */}
+          {/* <div>
+            <label className="block text-sm font-medium text-gray-700">Photo</label>
+            <input
+              name="image"
+              type="file"
+              accept="image/*"
+              onChange={handleChange}
+              className="mt-1 block w-full"
+            />
+            {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
+          </div> */}
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email}</p>
-              )}
-            </div>
-
-            {/* Phone Number */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Phone Number
-              </label>
-              <input
-                name="phoneNumber"
-                type="tel"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
-              />
-              {errors.phoneNumber && (
-                <p className="text-red-500 text-sm">{errors.phoneNumber}</p>
-              )}
-            </div>
-
-{/* Age */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Age
-              </label>
-              <input
-                name="age"
-                type="number"
-                min="0"
-                max="120"
-                value={formData.age}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
-              />
-              {errors.age && (
-                <p className="text-red-500 text-sm">{errors.age}</p>
-              )}
-            </div>
-
-            {/* Gender */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Gender
-              </label>
-              <div className="flex space-x-6">
-                <label className="flex items-center text-sm text-gray-700">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="male"
-                    checked={formData.gender === "male"}
-                    onChange={handleChange}
-                    className="h-4 w-4 text-indigo-600 border-gray-300"
-                  />
-                  <span className="ml-2">Male</span>
-                </label>
-                <label className="flex items-center text-sm text-gray-700">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="female"
-                    checked={formData.gender === "female"}
-                    onChange={handleChange}
-                    className="h-4 w-4 text-indigo-600 border-gray-300"
-                  />
-                  <span className="ml-2">Female</span>
-                </label>
-                <label className="flex items-center text-sm text-gray-700">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="other"
-                    checked={formData.gender === "other"}
-                    onChange={handleChange}
-                    className="h-4 w-4 text-indigo-600 border-gray-300"
-                  />
-                  <span className="ml-2">Other</span>
-                </label>
-              </div>
-              {errors.gender && (
-                <p className="text-red-500 text-sm mt-1">{errors.gender}</p>
-              )}
-            </div>
-
-            {/* Photo */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Photo
-              </label>
-              <input
-                name="photo"
-                type="file"
-                accept="image/*"
-                onChange={handleChange}
-                className="mt-1 block w-full text-sm"
-              />
-              {errors.photo && (
-                <p className="text-red-500 text-sm">{errors.photo}</p>
-              )}
-            </div>
-
-{/* Choose Zone */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Choose Zone
-              </label>
-              <select
-                name="zone"
-                value={formData.zone}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
-              >
-                <option value="">-- Select Zone --</option>
-                <option value="Zone 1">Zone 1</option>
-                <option value="Zone 2">Zone 2</option>
-                <option value="Zone 3">Zone 3</option>
-                <option value="Zone 4">Zone 4</option>
-                <option value="Zone 5">Zone 5</option>
-              </select>
-              {errors.zone && (
-                <p className="text-red-500 text-sm">{errors.zone}</p>
-              )}
-            </div>
-
-            {/* Vehicle Registration Number */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Vehicle Registration Number
-              </label>
-              <input
-                name="vehicleRegNumber"
-                type="text"
-                value={formData.vehicleRegNumber}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
-              />
-              {errors.vehicleRegNumber && (
-                <p className="text-red-500 text-sm">
-                  {errors.vehicleRegNumber}
-                </p>
-              )}
-            </div>
-
-            {/* License Upload */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                License Upload
-              </label>
-              <input
-                name="licenseFile"
-                type="file"
-                accept=".jpg,.jpeg,.png,.pdf"
-                onChange={handleChange}
-                className="mt-1 block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-              />
-              {errors.licenseFile && (
-                <p className="text-red-500 text-sm">{errors.licenseFile}</p>
-              )}
-            </div>
-
-            {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500 pr-10"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-2 flex items-center text-gray-500"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-              {errors.password && (
-                <p className="text-red-500 text-sm">{errors.password}</p>
-              )}
-            </div>
-{/* Confirm Password */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Confirm Password
-              </label>
-              <input
-                name="confirmPassword"
-                type={showPassword ? "text" : "password"}
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-indigo-500"
-              />
-              {errors.confirmPassword && (
-                <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
-              )}
-            </div>
-
-            {/* Agree Terms - full width */}
-            <div className="md:col-span-2 flex items-center">
-              <input
-                name="agree"
-                type="checkbox"
-                checked={formData.agree}
-                onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
-              />
-              <label className="ml-2 block text-sm text-gray-900">
-                I agree to the terms and conditions
-              </label>
-            </div>
-            {errors.agree && (
-              <p className="text-red-500 text-sm md:col-span-2">
-                {errors.agree}
-              </p>
+          {/* Licence Upload */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              License File
+            </label>
+            <input
+              name="licence"
+              type="file"
+              onChange={handleChange}
+              className="mt-1 block w-full"
+            />
+            {errors.licence && (
+              <p className="text-red-500 text-sm">{errors.licence}</p>
             )}
+          </div>
 
-            {/* Submit - full width */}
-            <div className="md:col-span-2">
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={formData.password}
+                onChange={handleChange}
+                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm pr-10"
+              />
               <button
-                type="submit"
-                className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 shadow"
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-2 flex items-center text-gray-500"
               >
-                Register
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
+          </div>
 
-            {/* Login Link */}
-            <div className="md:col-span-2 text-center text-sm">
-              Already have an account?{" "}
-              <Link to="/deliveryagent/login" className="text-indigo-600 hover:underline">
-                Login Now
-              </Link>
-            </div>
-          </form>
-        </div>
+          {/* Confirm Password */}
+          {/* <div>
+            <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input
+              name="confirmPassword"
+              type={showPassword ? "text" : "password"}
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm"
+            />
+            {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+          </div> */}
+
+          {/* Agree Checkbox */}
+          <div className="md:col-span-2 flex items-center">
+            <input
+              name="agree"
+              type="checkbox"
+              checked={formData.agree}
+              onChange={handleChange}
+              className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+            />
+            <label className="ml-2 block text-sm text-gray-900">
+              I agree to the terms and conditions
+            </label>
+          </div>
+          {errors.agree && (
+            <p className="text-red-500 text-sm md:col-span-2">{errors.agree}</p>
+          )}
+
+          {/* Submit Button */}
+          <div className="md:col-span-2">
+            <button
+              type="submit"
+              className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 shadow"
+            >
+              Register
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+      <Footer/>
+    </>
   );
 }
 

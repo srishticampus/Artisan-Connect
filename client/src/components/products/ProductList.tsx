@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { Navbar } from 'react-bootstrap';
+import ArtisanNavbar from '../navigation/ArtisanNavbar';
 
 interface Product {
   id: number;
@@ -48,6 +50,8 @@ const ProductList = () => {
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
+    <>
+    <ArtisanNavbar/>
     <div className="container mx-auto px-4 py-8">
       {/* Filters */}
       <div className="mb-8">
@@ -131,6 +135,7 @@ const ProductList = () => {
         </nav>
       </div>
     </div>
+    </>
   );
 };
 

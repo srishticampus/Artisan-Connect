@@ -1,0 +1,105 @@
+/* DeliveryAgentDashboard.css */
+
+.delivery-dashboard {
+    background-color: #fdfcfc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+/* Hero Banner */
+.hero-banner {
+    position: relative;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+
+  .banner-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-bottom: 4px solid #4c3c9c; /* Indigo 700 theme */
+  }
+
+
+  .banner-text {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    color: #fff;
+    background: rgba(141, 131, 131, 0.6); /* Slightly darker for better contrast */
+    padding: 30px;
+    border-radius: 8px; /* Reduced the border-radius for a sharper look */
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Added a subtle shadow for depth */
+  }
+  
+  .banner-text:hover {
+    transform: translate(-50%, -30%) scale(1.05); /* Slight scaling on hover for interactivity */
+  }
+  
+  /* Section Title */
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #4f46e5; /* Indigo */
+  }
+  
+  /* Dashboard Section */
+  .dashboard-section {
+    padding: 50px 0;
+    background-color: #fff;
+  }
+  
+  /* Delivery Card */
+  .delivery-card,
+  .dashboard-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+    height: 100%;
+  }
+  
+  .delivery-card:hover,
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .delivery-img,
+  .dashboard-img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    object-fit: cover;
+    max-height: 240px;
+  }
+  
+  /* Card Title and Text */
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #4f46e5;
+    margin-bottom: 10px;
+  }
+  
+  .card-text {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  /* Button Styles */
+  .view-products-btn,
+  .btn-outline-dark {
+    border-radius: 50px;
+    padding: 6px 20px;
+  }
+  
+  .btn-outline-dark:hover {
+    background-color: #4f46e5;
+    color: #fff;
+    border-color: #4f46e5;
+  }
+  
