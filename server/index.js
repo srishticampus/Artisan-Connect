@@ -1,17 +1,22 @@
-const express=require('express')
-const bodyParser=require('body-parser')
-const db=require('./dbConnection')
-const app=express()
-const cors=require('cors')
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const db = require("./dbConnection");
+const route = require("./routes");
 
-app.use(bodyParser.urlencoded({extended:false}))
-app.use(bodyParser.json())
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/upload`));
 
-app.use(cors())
-const route=require('./routes')
-app.use('/atresian_marketplace',route)
+// Routes
+app.use("/atrisan_connect", route);
 
-app.listen(4004,()=>{
-    console.log("Server created successfully at 4004");
-})
+// Start Server
+const PORT = 4004;
+app.listen(PORT, () => {
+  console.log(`Server is running successfully on port ${PORT}`);
+});

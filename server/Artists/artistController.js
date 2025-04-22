@@ -14,8 +14,6 @@ const upload = multer({ storage: storage }).single("image");
 //Artist Registration 
 
 const registerArtist=(req,res)=>{
-
-
     const newArtist=new Artists({
         firstname:req.body.firstname,
         lastname:req.body.lastname,

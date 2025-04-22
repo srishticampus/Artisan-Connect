@@ -1,61 +1,95 @@
-html, body, #root {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .about-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    color: #312e81; /* Indigo-900 */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .about-card-container {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-  }
-  
-  .about-card {
-    max-width: 768px;
-    width: 100%;
-    background-color: #f8fafc; /* soft white */
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-.about-title {
+.aboutus-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Hero Section with Background Image */
+.aboutus-hero {
+  width: 100%;
+  height: 60vh;
+  background-image: url("../../assets/aboutus-banner.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background-color: rgba(49, 46, 129, 0.6); /* indigo overlay */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-heading {
+  font-size: 3rem;
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Description Card Section */
+.aboutus-description-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  background-color: #f8fafc; /* light background */
+}
+
+.description-card {
+  max-width: 800px;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.description-card h2 {
+  color: #4f46e5; /* indigo-600 */
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.description-card p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #334155; /* slate-800 */
+  margin-bottom: 1.5rem;
+}
+
+/* Optional image inside the card */
+.description-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-heading {
+    font-size: 2.25rem;
     text-align: center;
-    margin-bottom: 1rem;
-    color: #4338ca; /* Indigo-700 */
+    padding: 0 1rem;
   }
-  
-  .about-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
+
+  .description-card {
+    padding: 2rem 1.25rem;
   }
-  
-  .bottom-strip {
-    background-color: #e0e7ff; /* Indigo-100 */
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    text-align: center;
-    gap: 0.5rem;
+
+  .description-card h2 {
+    font-size: 1.5rem;
   }
-  
-  @media (min-width: 768px) {
-    .bottom-strip {
-      flex-direction: row;
-      text-align: left;
-    }
+
+  .description-card p {
+    font-size: 1rem;
   }
+}

@@ -15,6 +15,7 @@ const upload = multer({ storage: storage }).single("image");
 //User Registration 
 
 const registerUser=(req,res)=>{
+console.log(req.body);
 
 
     const newUser=new users({

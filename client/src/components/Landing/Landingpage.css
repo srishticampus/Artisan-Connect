@@ -1,98 +1,66 @@
 .landing-page {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: white;
-    color: #3f3f74;
-  }
-  
-  /* Navbar */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: white;
+  color: #2e1a73; /* dark indigo for general text */
+}
+
+/* Navbar */
 .navbar-custom {
-    background-color: #9351b6; /* Dark gray background */
-    padding: 0.8rem 2rem;
-  }
-  
-  .navbar-custom .brand {
-    color: #fff;
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .navbar-custom .brand:hover {
-    color: #ffcc00;
-    text-decoration: none;
-  }
-  
-  .nav-buttons .btn,
-  .nav-buttons .dropdown-toggle {
-    border-radius: 20px;
-    padding: 0.4rem 1rem;
-    font-weight: 500;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .seller-btn {
-    margin-right: 1rem;
-  }
-  
-  /* Button group spacing */
-  .nav-buttons .btn + .btn,
-  .nav-buttons .dropdown + .dropdown,
-  .nav-buttons .btn + .dropdown {
-    margin-left: 0.5rem;
-  }
+  background-color:#3949AB;
+  padding: 0.8rem 2rem;
+}
+
+.brand-heading,
+.navbar-custom .brand,
+.nav-link-text,
 .login-btn .dropdown-toggle {
-    border: 1px solid #fff;
-    color: #fff;
-    background-color: transparent;
-  }
-  
-  .signup-btn .dropdown-toggle {
-    background-color: #fff;
-    color: #343a40;
-    margin-right: 25px;
-  }
-  
-  .dropdown-menu {
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    font-size: 0.95rem;
-  }
-  
-  .dropdown-item:hover {
-    background-color: #ffcc00;
-    color: #000;
-  }
-  
-  
-  /* Carousel */
-  .carousel-section {
-    margin-top: 1rem;
-  }
-  
-  .carousel-img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-  }
-  
-  .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    padding: 1rem;
-  }
-  
-  /* Description */
-  .description-section {
-    padding: 2rem 1rem;
-    background-color: #f8f8ff;
-    text-align: center;
-  }
+  color: #fff;
+}
+
+.nav-link-text:hover,
+.nav-buttons .btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.signup-btn .dropdown-toggle {
+  background-color: #fff;
+  color:#3949AB;
+  margin-right: 25px;
+}
+
+.nav-buttons .btn {
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+}
+
+/* Carousel */
+.carousel-caption {
+  background-color: #3949AB;
+  border-radius: 10px;
+  padding: 1rem;
+  color: white;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+/* Description */
+.description-section {
+  padding: 2rem 1rem;
+  background-color: #f3f0fb;
+  text-align: center;
+}
+
 .description-text {
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
+  font-size: 1.2rem;
+  color:#3949AB;
+}
+
   /* Features */
   .features-section {
     padding: 2rem 1rem;
@@ -101,7 +69,7 @@
   
   .features-title {
     margin-bottom: 2rem;
-    color: indigo;
+    color:  #3949AB;
   }
   
   .feature-cards {
@@ -124,51 +92,113 @@
     object-fit: cover;
     border-radius: 10px;
   }
-  
-  /* CTA Section */
-  .cta-section {
-    background-color: #e6e6fa;
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-  
-  .cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-  }
-  
-  .cta-btn {
-    border-radius: 50px;
-    padding: 0.5rem 1.5rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-.cta-icon {
-    font-size: 1.2rem;
-  }
-  
-  /* Social Section */
-  .social-section {
-    background-color: rgb(171, 103, 220);
-    color: white;
-    text-align: center;
-    padding: 1rem;
-  }
-  
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .social-icons a {
-    color: white;
-  }
+
+
+/* Video Section */
+.video-section-wrapper {
+  background-color: #f2f0fb;
+}
+
+.video {
+  width: 80%;
+  height: 500px;
+  border-radius: 1rem;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(63, 42, 135, 0.2);
+}
+
+.text-column {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  color: #3949AB;
+  box-shadow: 0 4px 15px rgba(63, 42, 135, 0.1);
+}
+
+.main-text{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size:large;
+}
+
+/* Community Spotlight */
+.community-spotlight-oval {
+  background: #f6f4fc;
+}
+
+.spotlight-heading {
+  font-weight: 600;
+  color: #3f2a87;
+  font-size: 2rem;
+}
+
+.oval-img {
+  width: 140px;
+  height: 100px;
+  border-radius: 50% / 40%;
+  object-fit: cover;
+  border: 3px solid #d1c9f4;
+  box-shadow: 0 4px 10px rgba(82, 21, 181, 0.1);
+}
+
+.spotlight-oval-card {
+  border-radius: 16px;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.spotlight-oval-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Best Sellers */
+.best-sellers-section {
+  background-color: #f3f1fc;
+}
+
+.best-sellers-title {
+  font-weight: 700;
+  font-size: 2rem;
+  color:#3949AB;
+}
+
+.best-seller-card {
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.best-seller-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(63, 42, 135, 0.15);
+}
+
+.best-seller-img {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.spot-best-color {
+  color: #3949AB;
+}
+
+/* Footer & Social */
+.social-section {
+  background-color: #3949AB;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.social-icons a {
+  color: white;
+}

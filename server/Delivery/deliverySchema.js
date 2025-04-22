@@ -1,7 +1,7 @@
 const mongoose= require("mongoose");
 
 const deliverySchema=mongoose.Schema({
-    firstname:{
+    name:{
         type:String,
         required:true
     },
@@ -17,7 +17,7 @@ const deliverySchema=mongoose.Schema({
         type:Number,
         required:true
     },
-    lastname:{
+    vehicleRegNumber:{
         type:String,
         required:true
     },
@@ -35,7 +35,6 @@ const deliverySchema=mongoose.Schema({
     },  
     email:{
         type:String,
-        unique:true,
         required:true,
        
         dropDups: true
@@ -46,7 +45,6 @@ const deliverySchema=mongoose.Schema({
     },
     aadhar:{
         type:Number,
-        unique:true,
         required:true,
        
         dropDups: true

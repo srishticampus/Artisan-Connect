@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Star, Heart, Share2, Minus, Plus, Truck, Shield, RefreshCw } from 'lucide-react';
+import ArtisanNavbar from '../navigation/ArtisanNavbar';
 
 const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -27,6 +28,8 @@ const ProductDetail = () => {
   };
 
   return (
+    <>
+    <ArtisanNavbar/>
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product Images */}
@@ -138,6 +141,7 @@ const ProductDetail = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

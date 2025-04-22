@@ -11,17 +11,14 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).single("image");
+const upload = multer({ storage: storage }).single("licence");
 //delivery Registration 
-
-
-
-const registerdelivery=(req,res)=>{
-
-
+const registerdelivery=async (req,res)=>{
+  console.log(req.file);
+  console.log(req.body);
     const newdelivery=new deliverys({
-        firstname:req.body.firstname,
-        lastname:req.body.lastname,
+        name:req.body.name,
+        vehicleRegNumber:req.body.vehicleRegNumber,
         housename:req.body.housename,
         email:req.body.email,
         city:req.body.city,
@@ -33,19 +30,20 @@ const registerdelivery=(req,res)=>{
         aadhar:req.body.aadhar,
         licence:req.file
     })
-    newdelivery.save().then(data=>{
+    try {
+      await newdelivery.save();
+      res.status(200).json({ msg: "Registered Successfully",status:200 });
+    } catch (err) {
+      if (err.code === 11000) {
+        // Duplicate key error
         res.json({
-            status:200,
-            msg:"Inserted successfully",
-            data:data
-        })
-    }).catch(err=>{
-        res.json({
-            status:500,
-            msg:"Data not Inserted",
-            Error:err
-        })
-    })
+          status: 400,
+          msg: `Aadhar number ${err.keyValue.aadhar} already exists`,
+        });
+      } else {
+        res.status(500).json({ status: 500, msg: "Data not Inserted", error: err });
+      }
+    }
 }
 //delivery Registration -- finished
 
@@ -64,7 +62,7 @@ const logindelivery=(req,res)=>{
       })
     }else{
       res.json({
-        status:500,
+        status:400,
         msg:"password Mismatch",
         
     })
@@ -79,8 +77,8 @@ const logindelivery=(req,res)=>{
     
   }).catch(err=>{
   res.json({
-      status:500,
-      msg:"delivery not found",
+      status:401,
+      msg:"delivery agent not found",
       Error:err
   })
   })
@@ -184,17 +182,18 @@ const logindelivery=(req,res)=>{
   const editdeliveryById=(req,res)=>{
   
     deliverys.findByIdAndUpdate({_id:req.params.id},{
-      firstname:req.body.firstname,
-      lastname:req.body.lastname,
-      housename:req.body.housename,
-      email:req.body.email,
-      city:req.body.city,
-      pincode:req.body.pincode,
-      contact:req.body.contact,
-      district:req.body.district,
-      age:req.body.age,
-      aadhar:req.body.aadhar,
-      licence:req.file
+      name:req.body.name,
+        vehicleRegNumber:req.body.vehicleRegNumber,
+        housename:req.body.housename,
+        email:req.body.email,
+        city:req.body.city,
+        pincode:req.body.pincode,
+        contact:req.body.contact,
+        district:req.body.district,
+        password:req.body.password,
+        age:req.body.age,
+        aadhar:req.body.aadhar,
+        licence:req.file
       })
   .exec().then(data=>{
     res.json({

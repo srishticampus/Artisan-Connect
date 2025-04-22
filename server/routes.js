@@ -36,6 +36,7 @@ router.post('/editdeliveryById/:id',deliveryController.upload,deliveryController
 router.post('/deletedeliveryById/:id',deliveryController.deletedeliveryById)
 router.post('/acceptDelReqs/:id',deliveryController.acceptDelReqs)
 router.post('/viewdeliverys',deliveryController.viewdeliverys)
+router.post('/forgotPwddeliveryagent',deliveryController.forgotPwd)
 
 
 //art works
