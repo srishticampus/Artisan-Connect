@@ -45,6 +45,8 @@ const registerArtist=(req,res)=>{
 
 //Login Artist 
 const loginArtist=(req,res)=>{
+  console.log(req.body);
+  
     const email=req.body.email
     const password=req.body.password
   
