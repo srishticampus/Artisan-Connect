@@ -17,7 +17,7 @@ function ArtisansLogin() {
     setError("");
 
     try {
-      const response = await axiosInstance.post("/loginUser", {
+      const response = await axiosInstance.post("/loginArtist", {
         email,
         password,
       });

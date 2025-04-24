@@ -28,7 +28,7 @@ function ArtrisanProfile({ url }) {
 
   useEffect(() => {
     axiosInstance
-      .post(`viewUserById/${userid}`)
+      .post(`viewArtistById/${userid}`)
       .then((res) => {
         console.log(res);
         setData(res.data.data);
@@ -85,7 +85,7 @@ function ArtrisanProfile({ url }) {
     }
 
     axiosInstance
-      .post(`editUserById/${userid}`, editedProfile, {
+      .post(`editArtistById/${userid}`, editedProfile, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
