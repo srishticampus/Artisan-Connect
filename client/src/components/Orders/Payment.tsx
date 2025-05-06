@@ -4,7 +4,7 @@ import axiosInstance from '../../BaseApi/Baseurl'
 
 function Payment() {
     const {id}=useParams()
-    const userid=localStorage.getItem("userid")
+    const userid=localStorage.getItem("buyerid")
     // console.log(userid);
 
     const[art,setArt]=useState({})

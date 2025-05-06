@@ -120,7 +120,7 @@ const addartworks=(req,res)=>{
   
 // view work by id
 const viewArtWorksByArtistId=(req,res)=>{
-  artworks.find({artistId:req.params.id}).exec()
+  artworks.find({artistId:req.params.id}).populate("artistId")
   .then(data=>{
     console.log(data);
     res.json({

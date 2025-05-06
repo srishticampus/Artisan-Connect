@@ -1,166 +1,124 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../footer/Footer";
-import product from "../../assets/aboutus-banner.jpg";
-import artistimg from "../../assets/best1.jpg";
 import Navbar from "../navigation/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import axiosInstance from "../../BaseApi/baseurl";
 
 function IndividualArtistWorks({ url }) {
+  const { id } = useParams();
+  const [artworks, setArtworks] = useState([]);
+  const [artistName, setArtistName] = useState("");
+  const [artistimage, setArtistImage] = useState("");
+
+  const userid=localStorage.getItem("buyerid")
+  useEffect(() => {
+    const fetchArtworks = async () => {
+      try {
+        const res = await axiosInstance.post(`/viewArtWorksByArtistId/${id}`);
+        setArtworks(res.data.data);
+        setArtistName(res.data.data[0]?.artistId?.firstname || "Artist");
+        setArtistImage(res.data.data[0]?.artistId?.image.filename || "Artist");
+
+      } catch (err) {
+        console.error("Failed to fetch artist works", err);
+      }
+    };
+    fetchArtworks();
+  }, [id]);
+
+  const cartfn = (artid, artistId) => {
+    if (!userid) {
+      alert("Please login to add items to cart.");
+      return;
+    }
+
+    axiosInstance
+      .post(`/addCart`, {
+        userid,
+        artid,
+        artistId,
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          alert("Artwork added to cart.");
+        } else {
+          alert(res.data.message || "Could not add to cart.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+        alert("Something went wrong. Try again later.");
+      });
+  };
+
   return (
     <>
       <Navbar url={url} />
 
-      <section className="Cover-img">
-        <h1>Works</h1>
+      <section style={{
+          backgroundColor: "#5046f4",
+          padding: "15px 0",
+          textAlign: "center",
+        }} className="bg-cover bg-center h-20 flex items-center justify-center bg-gray-200">
+        <h1  className=" font-bold text-light">Works</h1>
       </section>
 
-      <div className="IndividualArtistWorks">
-        <div className="artistworks-profile">
-          <div className="artistworks-image">
-            <img src={artistimg} alt="artist image" />
-          </div>
-          <h1>Lumiere</h1>
+      <div className= "px-5">
+        <div className="flex flex-col items-center mb-2">
+          {/* <div className="w-28 h-28 border-4 border-gray-300 mb-4">
+            <img src={`${url}/${artistimage}`} alt="artist" />
+          </div> */}
+          <h1 className="">{artistName}</h1>
         </div>
 
-        <h4>EXPLORE THE ART</h4>
+        <h4 className="text-center text-xl font-medium text-gray-600 mb-6">
+          EXPLORE THE ART
+        </h4>
 
-        <div className="explore-gallery">
-          <div className="gallery-products">
-            <div class="container text-center">
-              <div class="row gallery-row">
-                <div class="col-6 gallery-col">
-                  <div class="card" style={{ width: "20rem" }}>
-                    <Link to="/viewsinglework">
-                      <img src={product} class="card-img-top" alt="..." />
+        <div className="container mx-auto">
+          <div className="row">
+            {artworks.length > 0 ? (
+              artworks.map((art, index) => (
+                <div className="col-md-6 col-lg-4 mb-5" key={index}>
+                  <div className="card shadow-lg border-0">
+                    <Link to={`/viewsinglework_art/${art._id}`}>
+                      <img
+                        src={`${url}/${art.file.filename}`}
+                        className="card-img-top object-cover h-64"
+                        alt={art.title}
+                      />
                     </Link>
-
-                    <div class="artdesc">
-                      <div className="productdet">
-                        <h1 class="card-text1">Lumiere</h1>
-                        <h3 id="card-text2">
-                          <button>ADD TO CART</button>
-                        </h3>
+                    <div className="card-body p-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <h5 className="text-lg font-bold">{art.title}</h5>
+                        <h5 className="text-green-700 font-semibold">₹ {art.price}</h5>
                       </div>
-
-                      <div className="product-pricetag">
-                        <h1> ₹ 500 </h1>
-                      </div>
-
-                      <Link to="/user_chat">
-                        <div className="gallery-artistprofile">
-                          <img src={artistimg} />
-                        </div>
-                      </Link>
-
-                      <div className="gallery-chat-icon">
-                        <Link to="/user_chat">
-                         chat
+                      <div className="flex justify-between items-center">
+                        <button  onClick={() => cartfn(art._id, art.artistId?._id)} className="btn btn-outline-primary btn-sm">
+                          ADD TO CART
+                        </button>
+                        <Link to="/user_chat" className="flex items-center space-x-2">
+                          <img
+                            src={`${url}/${art.artistId.image.filename}`}
+                            alt="artist"
+                            className="w-8 h-8 rounded-full border"
+                          />
+                          <span className="text-sm text-blue-600">Chat</span>
                         </Link>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-6 gallery-col">
-                  <div class="card" style={{ width: "20rem" }}>
-                    <Link to="/viewsinglework">
-                      <img src={product} class="card-img-top" alt="..." />
-                    </Link>
-
-                    <div class="artdesc">
-                      <div className="productdet">
-                        <h1 class="card-text1">Lumiere</h1>
-                        <h3 id="card-text2">
-                          <button>ADD TO CART</button>
-                        </h3>
-                      </div>
-
-                      <div className="product-pricetag">
-                        <h1> ₹ 500 </h1>
-                      </div>
-
-                      <Link to="/user_chat">
-                        <div className="gallery-artistprofile">
-                          <img src={artistimg} />
-                        </div>
-                      </Link>
-
-                      <div className="gallery-chat-icon">
-                        <Link to="/user_chat">
-                          chat
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6 gallery-col">
-                  <div class="card" style={{ width: "20rem" }}>
-                    <Link to="/viewsinglework">
-                      <img src={product} class="card-img-top" alt="..." />
-                    </Link>
-
-                    <div class="artdesc">
-                      <div className="productdet">
-                        <h1 class="card-text1">Lumiere</h1>
-                        <h3 id="card-text2">
-                          <button>ADD TO CART</button>
-                        </h3>
-                      </div>
-
-                      <div className="product-pricetag">
-                        <h1> ₹ 500 </h1>
-                      </div>
-
-                      <Link to="/user_chat">
-                        <div className="gallery-artistprofile">
-                          <img src={artistimg} />
-                        </div>
-                      </Link>
-
-                      <div className="gallery-chat-icon">
-                        <Link to="/user_chat">
-chat
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6 gallery-col">
-                  <div class="card" style={{ width: "20rem" }}>
-                    <Link to="/viewsinglework">
-                      <img src={product} class="card-img-top" alt="..." />
-                    </Link>
-
-                    <div class="artdesc">
-                      <div className="productdet">
-                        <h1 class="card-text1">Lumiere</h1>
-                        <h3 id="card-text2">
-                          <button>ADD TO CART</button>
-                        </h3>
-                      </div>
-
-                      <div className="product-pricetag">
-                        <h1> ₹ 500 </h1>
-                      </div>
-
-                      <Link to="/user_chat">
-                        <div className="gallery-artistprofile">
-                          <img src={artistimg} />
-                        </div>
-                      </Link>
-
-                      <div className="gallery-chat-icon">
-                        <Link to="/user_chat">
-                          chat
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              ))
+            ) : (
+              <div className="text-center text-gray-500 w-full mt-5">
+                <p>No artworks available for this artist.</p>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   );

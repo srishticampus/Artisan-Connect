@@ -4,13 +4,14 @@ import Footer from "../footer/Footer";
 import axiosInstance from "../../BaseApi/Baseurl";
 
 function TrackOrder({ url }) {
-  const userid = localStorage.getItem("userid");
-  console.log(userid);
   const [order, setOrder] = useState([]);
+
+  const userid = localStorage.getItem("buyerid");
+  console.log(userid);
 
   useEffect(() => {
     axiosInstance
-      .post(`vieworderByUserid/${userid}`)
+      .post(`/vieworderByUserid/${userid}`)
       .then((res) => {
         console.log(res);
         setOrder(res.data.data);
@@ -24,7 +25,7 @@ function TrackOrder({ url }) {
     <>
       <Navbar url={url} />
 
-      {/ Banner Section /}
+      {/* {/ Banner Section /} */}
       <section
         style={{
           backgroundColor: "#5046f4",
@@ -36,7 +37,7 @@ function TrackOrder({ url }) {
         <h1 style={{ fontSize: "30px", margin: "0" }}>Track Order</h1>
       </section>
 
-      {/ Orders Dashboard /}
+      {/* {/ Orders Dashboard /} */}
       <div
         style={{
           maxWidth: "1200px",
@@ -168,8 +169,8 @@ function TrackOrder({ url }) {
           </table>
         </div>
 
-        {/ Message Section /}
-        {/ Uncomment if needed /}
+        {/* {/ Message Section /}
+        {/ Uncomment if needed /} */}
         {/* <div className="dashboard-msgshipper">
           <h2>Message Shipper</h2>
           <div className="dashboard-form">

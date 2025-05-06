@@ -53,17 +53,20 @@ router.post('/searchartByName/:name', artwork.searchArtByName)
 router.post('/addCart',cart.addCart)
 router.post('/viewCartByUserid/:id',cart.viewCartByUserid)
 router.post('/deleteCartById/:id',cart.deleteCartById)
-
+router.post('/viewCart',cart.viewCart)
 //order
 router.post('/orderitem',orderController.addOrder)
 router.post('/vieworderByUserid/:id',orderController.viewOrderByUserid)
 router.post('/viewOrderByArtist/:id',orderController.viewOrderByArtist)
 router.post('/deleteOrderById/:id',orderController.deleteOrderById)
 
+router.post('/viewOrders',orderController.viewOrders)
 router.post('/addOrderFromCart',orderController.addOrderFromCart)
 router.post('/viewPendingOrdersForDelivery',orderController.viewPendingOrdersForDelivery)
 router.post('/updateStatusOfOrdersByOrderId/:id',orderController.updateStatusOfOrdersByOrderId)
 router.post('/viewOrdersByDeliveryId/:id',orderController.viewOrdersByDeliveryId)
 router.post('/acceptorderByDeliverAgent/:id',orderController.acceptorderByDeliverAgent)
 
+
+router.post('/deleteCartByUserId/:userid',cart.deletecartbyuserid)
 module.exports=router

@@ -1,20 +1,117 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import Navbar from "../navigation/Navbar";
 import Footer from "../footer/Footer";
 import { useNavigate } from "react-router-dom";
-
+import axiosInstance  from "../../BaseApi/baseurl";
 function Checkout() {
   const navigate = useNavigate();
 
+  const userid = localStorage.getItem("buyerid");
+    console.log(userid);
+  
+    const [art, setArt] = useState([]);
+    const [cartitems, setCartItems] = useState([]);
+  
+    useEffect(() => {
+      axiosInstance
+        .post(`viewCartByUserid/${userid}`)
+        .then((res) => {
+          console.log(res);
+          setArt(res.data.data);
+          const mappedCartItems = res.data.data.map((item) => ({
+            userid: userid,
+            artid: item.artid._id,
+            artistId: item.artid.artistId,
+          }));
+          setCartItems(mappedCartItems);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
+  
+    const handleCheckout = () => {
+      axiosInstance
+        .post("addOrderFromCart", { cartitems })
+        .then((res) => {
+          if (res.data.status === 200) {
+            alert("Order placed successfully");
+    
+            // After successful order, delete cart items of that user
+            axiosInstance
+              .post(`deleteCartByUserId/${userid}`)
+              .then((deleteRes) => {
+                if (deleteRes.data.status === 200) {
+                  alert("Cart cleared successfully");
+                  navigate("/order_confirmed"); // navigate to confirmation page
+                } else {
+                  alert("Order placed, but failed to clear cart");
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                alert("Order placed, but error occurred while clearing cart");
+              });
+    
+          } else {
+            alert("Failed to place order");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Error occurred while placing order");
+        });
+    };
+    
+  
+    const buttonStyle = {
+      padding: "10px 20px",
+      fontSize: "16px",
+      backgroundColor: "#5046f4", // Updated color
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      position: "relative",
+      animation: "blink 1s infinite",
+      transition: "background-color 0.3s ease",
+    };
+  
+    const [totalPrice, setTotalPrice] = useState(0);
+    useEffect(() => {
+      const calculateTotalPrice = () => {
+        let sum = 0;
+        art?.forEach((a) => {
+          sum += a?.artid?.price || 0;
+        });
+        setTotalPrice(sum);
+      };
+  
+      calculateTotalPrice();
+    }, [art]);
+  
+    const removecartfn = (itemid) => {
+      axiosInstance.post(`deleteCartById/${itemid}`).then((res) => {
+        console.log(res);
+        if (res.data.status == 200) {
+          alert("Item removed successfully");
+          window.location.reload();
+        }
+      }).catch = (err) => {
+        console.log(err);
+      };
+    };
+  
   const clickFn = () => {
-    navigate("/order_confirmed");
+
+    // navigate("/order_confirmed");
   };
 
   return (
     <>
       <Navbar />
 
-      {/ Banner Section /}
+      {/* {/ Banner Section /} */}
       <section
         style={{
           backgroundColor: "#5046f4",
@@ -26,7 +123,7 @@ function Checkout() {
         <h1 style={{ fontSize: "42px", margin: "0" }}>CHECK OUT</h1>
       </section>
 
-      {/ Checkout Section /}
+      {/* {/ Checkout Section /} */}
       <div
         style={{
           maxWidth: "1000px",
@@ -44,8 +141,8 @@ function Checkout() {
           You can checkout and pay for your order
         </p>
 
-        {/ UPI Section /}
-        <div
+        {/* {/ UPI Section /} */}
+        {/* <div
           style={{
             display: "flex",
             flexDirection: "column",
@@ -67,9 +164,9 @@ function Checkout() {
               outline: "none",
             }}
           />
-        </div>
+        </div> */}
 
-        {/ Buttons Section /}
+        {/* {/ Buttons Section /} */}
         <div
           style={{
             display: "flex",
@@ -78,7 +175,7 @@ function Checkout() {
             marginTop: "20px",
           }}
         >
-          <div style={{ flex: "1", maxWidth: "150px" }}>
+          {/* <div style={{ flex: "1", maxWidth: "150px" }}>
             <button
               style={{
                 width: "100%",
@@ -93,10 +190,10 @@ function Checkout() {
             >
               PAY WITH UPI
             </button>
-          </div>
+          </div> */}
           <div style={{ flex: "1", maxWidth: "150px" }}>
             <button
-              onClick={clickFn}
+              onClick={handleCheckout}
               style={{
                 width: "100%",
                 padding: "15px",
@@ -112,61 +209,7 @@ function Checkout() {
             </button>
           </div>
         </div>
-      </div>
-
-      {/ Featured Artists Section /}
-      <section
-        style={{
-          backgroundColor: "#f5f5f5",
-          padding: "50px 0",
-          textAlign: "center",
-        }}
-      >
-        <h1 style={{ fontSize: "36px", color: "#5046f4", marginBottom: "20px" }}>
-          Featured Artists
-        </h1>
-        <h2
-          style={{
-            fontSize: "18px",
-            color: "#777",
-            marginBottom: "30px",
-            maxWidth: "800px",
-            margin: "0 auto",
-          }}
-        >
-          We provide the tools and support to help your artistic compass guide
-          you.
-        </h2>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            flexWrap: "wrap",
-            gap: "20px",
-          }}
-        >
-          {[1, 2, 3, 4].map((_, index) => (
-            <div
-              key={index}
-              style={{
-                width: "200px",
-                height: "250px",
-                backgroundColor: "#ddd",
-                borderRadius: "10px",
-                padding: "20px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)",
-              }}
-            >
-              <h1 style={{ color: "#5046f4", margin: "0" }}>Lumiere</h1>
-            </div>
-          ))}
-        </div>
-      </section>
+      </div>      
 
       <Footer />
     </>
