@@ -4,7 +4,7 @@ import Footer from '../footer/Footer';
 import axiosInstance from '../../BaseApi/baseurl';
 
 function UserOrders({url}) {
-  const userid = localStorage.getItem("userid");
+  const userid = localStorage.getItem("buyerid");
   console.log(userid);
 
   const [order, setOrder] = useState([]);
@@ -61,7 +61,7 @@ function UserOrders({url}) {
     <>
       <Navbar url={url} />
       
-      {/ Banner Section /}
+      {/* {/ Banner Section /} */}
       <section
         style={{
           backgroundColor: "#5046f4",
@@ -73,7 +73,7 @@ function UserOrders({url}) {
         <h1 style={{ fontSize: "30px", margin: "0" }}>Orders</h1>
       </section>
 
-      {/ Orders Container /}
+      {/* {/ Orders Container /} */}
       <div
         style={{
           maxWidth: "1200px",
@@ -98,7 +98,7 @@ function UserOrders({url}) {
           Dive into a vibrant ocean of creativity. Musefire, passionate artists meet art lovers seeking the extraordinary.
         </p>
 
-        {/ Orders Table /}
+        {/* {/ Orders Table /} */}
         <div style={{ overflowX: "auto" }}>
           <table
             style={{
@@ -169,7 +169,7 @@ function UserOrders({url}) {
           </table>
         </div>
 
-        {/ Total Price /}
+        {/* {/ Total Price /} */}
         <div
           style={{
             textAlign: "right",

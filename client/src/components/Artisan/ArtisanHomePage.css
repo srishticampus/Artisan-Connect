@@ -142,3 +142,130 @@
     color: white;
   }
   
+
+  .ArtistChat {
+    padding: 20px;
+    background-color: #f4f4ff;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .artistchat-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(80, 70, 244, 0.2);
+  }
+  
+  .artistchatdetails h1 {
+    font-size: 18px;
+    color: #5046f4;
+    margin-bottom: 10px;
+  }
+  
+  .artist-chatinbox {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(80, 70, 244, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .artistchat-container2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .artistchat-input input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #5046f4;
+    border-radius: 8px;
+    outline: none;
+  }
+  
+  .artistchat-updatebtn button {
+    background-color: #5046f4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .artistchat-updatebtn button:hover {
+    background-color: #3d38c3;
+  }
+  
+  .artist-usermessage,
+  .artistmessage {
+    background-color: #5046f4;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 15px;
+    max-width: 70%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .artist-usermessage {
+    background-color: #d9d6ff;
+    color: #333;
+    text-align: left;
+    border-top-left-radius: 0;
+  }
+  
+  .artistmessage {
+    background-color: #5046f4;
+    text-align: right;
+    align-self: flex-end;
+    border-top-right-radius: 0;
+  }
+  
+  .artist-msgtym,
+  .user-msgtym {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .artist-usermessage p,
+  .artistmessage p {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #eee;
+  }
+  
+  .artistchat-container-3 {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .chatmessage-input input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 2px solid #5046f4;
+    border-radius: 8px;
+    outline: none;
+  }
+  
+  .artistmsgsendbtn button {
+    background-color: #5046f4;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .artistmsgsendbtn button:hover {
+    background-color: #3d38c3;
+  }
+  

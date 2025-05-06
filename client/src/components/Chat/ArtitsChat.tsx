@@ -1,17 +1,16 @@
 import React from 'react'
 import ArtisanNavbar from '../navigation/ArtisanNavbar'
-
+import "../Artisan/ArtisanHomePage.css"
 
 function ArtistChat() {
     
   return (
 
     <>
-    <div  className='row'>
-        <div className='col-2'>
-<ArtisanNavbar/>
-        </div>
-    <div className='col-10 ArtistChat'>
+    <ArtisanNavbar/>
+    
+    
+    <div className=' ArtistChat'>
 
 <div className='artistchat-container'>
 
@@ -25,17 +24,6 @@ function ArtistChat() {
 
 <div className='artist-chatinbox'>
 <div className='artistchat-container2'>
-
-<div className='artistchat-input'>
-<input type="text" />
-</div>
-
-<div className='artistchat-updatebtn'>
-<button>Update</button>
-
-
-
-</div>
 </div>
 
 <div className='row' id='artistchattingsection'>
@@ -76,7 +64,6 @@ function ArtistChat() {
         </div>
          
         </div>
-    </div>
    
     </>
     

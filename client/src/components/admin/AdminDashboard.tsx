@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Users,
   ShoppingBag,
@@ -11,66 +11,125 @@ import {
 } from "lucide-react";
 import AdminSidebar from "./AdminSidebar";
 import Footer from "../footer/Footer";
+import axiosInstance from "../../BaseApi/baseurl";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
+  const [userCount, setUserCount] = useState(0);
+  const [artistCount, setArtistCount] = useState(0);
+  const [deliveryCount, setDeliveryCount] = useState(0);
+  const [artworkCount, setArtworkCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
+  const [ordercount, setOrderCount] = useState(0);
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        const usersRes = await axiosInstance.post("/viewUsers");
+        const artistsRes = await axiosInstance.post("/viewArtists");
+        const deliveryRes = await axiosInstance.post("/viewdeliverys");
+        const artworksRes = await axiosInstance.post("/viewArtworks");
+
+        const orders = await axiosInstance.post("/viewOrders");
+        const cart = await axiosInstance.post("/viewCart");
+
+        setUserCount(usersRes.data.data?.length || 0);
+        setArtistCount(artistsRes.data.data?.length || 0);
+        setDeliveryCount(deliveryRes.data.data?.length || 0);
+        setArtworkCount(artworksRes.data.data?.length || 0);
+        setCartCount(cart.data.data?.length || 0);
+        setOrderCount(orders.data.data?.length || 0);
+
+      } catch (err) {
+        console.error("Failed to fetch dashboard counts:", err);
+      }
+    };
+
+    fetchCounts();
+  }, []);
+
   const stats = [
     {
       icon: Users,
       label: "Total Users",
-      value: "1,234",
-      change: "+12%",
+      value: userCount,
       color: "bg-blue-500",
     },
+   
     {
-      icon: ShoppingBag,
-      label: "Total Orders",
-      value: "856",
-      change: "+23%",
-      color: "bg-green-500",
-    },
-    {
-      icon: DollarSign,
-      label: "Revenue",
-      value: "$45,678",
-      change: "+18%",
+      icon:  Users,
+      // icon: DollarSign,
+      label: "Total Artists",
+      value: artistCount,
       color: "bg-yellow-500",
     },
     {
-      icon: TrendingUp,
-      label: "Growth",
-      value: "24.8%",
-      change: "+2.3%",
+      
+      icon: Users,
+      label: "Total Deliveries",
+      value: deliveryCount,
       color: "bg-purple-500",
     },
+    {
+      // icon: Users,
+      icon: ShoppingBag,
+      label: "Total Artworks",
+      value: artworkCount,
+      
+      color: "bg-green-500",
+    },
+    {
+      // icon: Users,
+      icon: TrendingUp,
+      label: "Total Oders",
+      value: ordercount,
+      
+      color: "bg-red-500",
+    } ,{
+      icon: Package,
+      // icon: ShoppingBag,
+      label: "Total CartItem",
+      value: cartCount,
+      
+      color: "bg-pink-500",
+    }
   ];
 
-  const recentOrders = [
-    {
-      id: "#ORD-001",
-      customer: "John Doe",
-      status: "Completed",
-      amount: "$120.00",
-    },
-    {
-      id: "#ORD-002",
-      customer: "Jane Smith",
-      status: "Processing",
-      amount: "$85.50",
-    },
-    {
-      id: "#ORD-003",
-      customer: "Mike Johnson",
-      status: "Pending",
-      amount: "$220.00",
-    },
-    {
-      id: "#ORD-004",
-      customer: "Sarah Williams",
-      status: "Completed",
-      amount: "$175.25",
-    },
-  ];
-
+  // const recentOrders = [
+  //   {
+  //     id: "#ORD-001",
+  //     customer: "John Doe",
+  //     status: "Completed",
+  //     amount: "$120.00",
+  //   },
+  //   {
+  //     id: "#ORD-002",
+  //     customer: "Jane Smith",
+  //     status: "Processing",
+  //     amount: "$85.50",
+  //   },
+  //   {
+  //     id: "#ORD-003",
+  //     customer: "Mike Johnson",
+  //     status: "Pending",
+  //     amount: "$220.00",
+  //   },
+  //   {
+  //     id: "#ORD-004",
+  //     customer: "Sarah Williams",
+  //     status: "Completed",
+  //     amount: "$175.25",
+  //   },
+  // ];
+const navigate=useNavigate()
+  const product=()=>{
+    navigate("/admin/products")
+  }
+  const order=()=>{
+    navigate("/admin/orders")
+  }
+  const complaints=()=>{
+    navigate("/admin/complaints")
+  }
   return (
     <>
       <div className="min-h-screen flex flex-col ml-64 p-8">
@@ -91,9 +150,7 @@ const AdminDashboard = () => {
                     <h3 className="text-gray-500 text-sm">{stat.label}</h3>
                     <div className="flex items-center">
                       <p className="text-2xl font-semibold">{stat.value}</p>
-                      <span className="text-green-500 text-sm ml-2">
-                        {stat.change}
-                      </span>
+                     
                     </div>
                   </div>
                 </div>
@@ -102,7 +159,7 @@ const AdminDashboard = () => {
           })}
         </div>
 
-        {/* Recent Orders */}
+        {/* Recent Orders 
         <div className="bg-white rounded-lg shadow">
           <div className="p-6">
             <h2 className="text-xl font-semibold mb-4">Recent Orders</h2>
@@ -147,32 +204,29 @@ const AdminDashboard = () => {
               </table>
             </div>
           </div>
-        </div>
+        </div>*/}
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          <button className="flex items-center justify-center space-x-2 bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+          <button onClick={product} className="flex items-center justify-center space-x-2 bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
             <Package className="h-5 w-5 text-indigo-600" />
-            <span>Add New Product</span>
+            <span> New Products</span>
           </button>
-          <button className="flex items-center justify-center space-x-2 bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+          <button onClick={order} className="flex items-center justify-center space-x-2 bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
             <ShoppingCart className="h-5 w-5 text-indigo-600" />
             <span>View All Orders</span>
           </button>
-          <button className="flex items-center justify-center space-x-2 bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+          <button onClick={complaints} className="flex items-center justify-center space-x-2 bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
             <AlertCircle className="h-5 w-5 text-indigo-600" />
-            <span>Pending Reviews</span>
+            <span>Complaints</span>
           </button>
-          <button className="flex items-center justify-center space-x-2 bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+          {/* <button className="flex items-center justify-center space-x-2 bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
             <CheckCircle className="h-5 w-5 text-indigo-600" />
             <span>Approve Listings</span>
-          </button>
-        </div> 
-        <div className="ms-0 mt-3">
-        <Footer />
+          </button>  */}
         </div>
+
       </div>
-     
     </>
   );
 };

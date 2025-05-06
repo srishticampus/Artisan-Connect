@@ -41,6 +41,17 @@ import IndividualArtistWorks from "./components/Buyer/IndividualArtistWorks";
 import UserOrders from "./components/Orders/UserOrders";
 import ViewSingleWork from "./components/Buyer/ViewSingleWork";
 import Payment from "./components/Orders/Payment";
+import TrackOrder from "./components/Orders/TrackOrder";
+import ArtistWorks from "./components/Artisan/ArtistWorks";
+import ArtistOrdrers from "./components/Orders/ArtistOrders";
+import ArtistChat from "./components/Chat/ArtitsChat";
+import Editwork from "./components/Artisan/Editwork";
+import DeliveryRoutes from "./components/DeliveryAgent/DeliveryRoutes";
+import DeliveryJobs from "./components/DeliveryAgent/DeliveryJobs";
+import BuyerChat from "./components/Chat/BuyerChat";
+import AdminViewOders from "./components/Orders/AdminViewOders";
+import Addminvieworders from "./components/admin/Addminvieworders";
+import AdminProductview from "./components/admin/AdminProductview";
 
 // #5046f4
 function App() {
@@ -63,12 +74,14 @@ function App() {
           element={<BuyerProfile url={imageBaseUrl} />}
         />
         <Route path="/buyer/viewproductlist" element={<ProductList />} />
+        <Route path="/buyer/trackorder" element={<TrackOrder url={imageBaseUrl} />} />
         <Route path="/buyer/forgetpassword" element={<BuyerForgotpswd />} />
+        <Route path="/user_chat" element={<BuyerChat url={imageBaseUrl} />} />
+
         <Route
           path="/buyer/viewproductdetails/:productid"
           element={<ProductDetail />}
         />
-
         <Route path="/user_cart" element={<Cart url={imageBaseUrl} />} />
 
         <Route path="/user_notification" element={<NotificationMain />} />
@@ -79,7 +92,7 @@ function App() {
         <Route path="/order_confirmed" element={<OrderConfirm />} />
         <Route path="/view_artists" element={<ViewArtists url={imageBaseUrl} />} />
         <Route
-          path="/view_artistworksindividual"
+          path="/view_artistworks/:id"
           element={<IndividualArtistWorks url={imageBaseUrl} />}
         />
         <Route path="/view_orders" element={<UserOrders url={imageBaseUrl} />} />
@@ -90,10 +103,15 @@ function App() {
         <Route path="/payment/:id" element={<Payment url={imageBaseUrl} />} />
 
         {/* artisan */}
-           <Route path="/artisan/login" element={<ArtisanLogin />} />
+        <Route path="/artisan/login" element={<ArtisanLogin />} />
         <Route path="/artisan/register" element={<ArtisanRegister />} />
         <Route path="/artisan/forgetpassword" element={<Artisanforget />} />
+        <Route path="/artisan/works" element={<ArtistWorks url={imageBaseUrl} />} />
+        <Route path="/artisan/order" element={<ArtistOrdrers url={imageBaseUrl} />} />
+        <Route path="/artisan/chat" element={<ArtistChat />} />
         <Route path="/artisan/homepage" element={<ArtisanHome />} />
+        <Route path="/artist_editprofile/:id" element={<Editwork url={imageBaseUrl} />} />
+
         <Route
           path="/artisan/profile"
           element={<ArtrisanProfile url={imageBaseUrl} />}
@@ -110,6 +128,9 @@ function App() {
           element={<Deliveryforget />}
         />
         <Route path="/deliveryagent/homepage" element={<DeliveryAgentHome />} />
+        <Route path="/delivery_agent_routes" element={<DeliveryRoutes />} />
+        <Route path="/delivery_agent_jobs" element={<DeliveryJobs />} />
+
         <Route
           path="/deliveryagent/profile"
           element={<Deliveryprofile url={imageBaseUrl} />}
@@ -142,9 +163,16 @@ function App() {
           path="/admin_viewdeliveryagentindividua/:id"
           element={<AdminViewDeliveryAgentIndividual url={imageBaseUrl} />}
         />
+        <Route
+          path="/admin/orders"
+          element={<Addminvieworders url={imageBaseUrl} />}
+        />
+         <Route
+          path="/admin/products"
+          element={<AdminProductview url={imageBaseUrl} />}
+        />
       </Routes>
 
-      {/* cart */}
     </BrowserRouter>
   );
 }

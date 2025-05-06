@@ -5,15 +5,12 @@ import axiosInstance from "../../BaseApi/baseurl";
 
 function ArtistOrdrers({ url }) {
   const artistid = localStorage.getItem("artisanid");
-  console.log(artistid);
-
   const [order, setOrder] = useState([]);
 
   useEffect(() => {
     axiosInstance
       .post(`viewOrderByArtist/${artistid}`)
       .then((res) => {
-        console.log(res);
         setOrder(res.data.data);
       })
       .catch((err) => {
@@ -23,21 +20,15 @@ function ArtistOrdrers({ url }) {
 
   return (
     <>
-      <div className="artistorders">
-        <ArtisanNavbar />
+      <ArtisanNavbar />
 
-        <div className="col-10 orders">
-          <div className="orders-table">
-            <h1 className="mt-5 ms-3  ">Orders</h1>
+      <div className="p-6 bg-[#f4f4ff] min-h-screen">
+        <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg p-6">
+          <h1 className="text-2xl font-semibold text-[#5046f4] mb-6">Orders</h1>
 
-            <Table
-              striped
-              bordered
-              hover
-              className="mt-5 ms-3"
-              style={{ width: "100%" }}
-            >
-              <thead style={{ height: "50px" }}>
+          <div className="overflow-x-auto">
+            <Table striped bordered hover responsive>
+              <thead className="bg-[#5046f4] text-white text-center">
                 <tr>
                   <th>No</th>
                   <th>Work</th>
@@ -47,30 +38,51 @@ function ArtistOrdrers({ url }) {
                   <th>Delivery</th>
                 </tr>
               </thead>
-              <tbody>
-                {order && order.length ? (
-                  order.map((a, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td id="workorders">
-                          <img src={`${url}/${a?.artid?.file?.filename}`} />
-                          <p>{a?.artid?.name} </p>
-                        </td>
-                        <td>{a?.userid?.firstname}</td>
-                        <td>{a?.artid?.price}</td>
-                        <td>{a?.deliveryStatus}</td>
-                        <td>
-                          {" "}
-                          {a.deliveryId
-                            ? `${a.deliveryId.firstname}, ${a.deliveryId.contact}`
-                            : "Order not picked up"}
-                        </td>
-                      </tr>
-                    );
-                  })
+              <tbody className="text-center align-middle">
+                {order && order.length > 0 ? (
+                  order.map((a, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className="flex flex-col items-center gap-2 py-3">
+                        <img
+                          src={`${url}/${a?.artid?.file?.filename}`}
+                          alt="Artwork"
+                          className="w-16 h-16 object-cover rounded-md"
+                        />
+                        <span>{a?.artid?.name}</span>
+                      </td>
+                      <td>{a?.userid?.firstname}</td>
+                      <td>₹{a?.artid?.price}</td>
+                      <td>
+                        <span
+                          className={`px-3 py-1 rounded-full text-sm font-medium ${
+                            a?.deliveryStatus === "Delivered"
+                              ? "bg-green-100 text-green-700"
+                              : a?.deliveryStatus === "Pending"
+                              ? "bg-yellow-100 text-yellow-700"
+                              : "bg-red-100 text-red-700"
+                          }`}
+                        >
+                          {a?.deliveryStatus}
+                        </span>
+                      </td>
+                      <td>
+                        {a.deliveryId ? (
+                          <>
+                            {a.deliveryId.firstname}, {a.deliveryId.contact}
+                          </>
+                        ) : (
+                          <span className="text-gray-500">Not picked up</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))
                 ) : (
-                  <div>No Works Available</div>
+                  <tr>
+                    <td colSpan="6" className="text-center py-5 text-gray-500">
+                      No Orders Available
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </Table>
