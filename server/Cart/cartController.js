@@ -82,7 +82,6 @@ const deleteCartById = (req, res) => {
 
     cartSchema.findByIdAndDelete({ _id: req.params.id }).exec()
         .then(data => {
-            console.log(data);
             res.json({
                 status: 200,
                 msg: "Data removed successfully",

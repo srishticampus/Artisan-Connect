@@ -45,14 +45,14 @@ function IndividualArtistWorks({ url }) {
                         <h1> ₹ 500 </h1>
                       </div>
 
-                      <Link to="/user_chat">
+                      <Link to="/buyer_chat/:artisanId/:productId">
                         <div className="gallery-artistprofile">
                           <img src={artistimg} />
                         </div>
                       </Link>
 
                       <div className="gallery-chat-icon">
-                        <Link to="/user_chat">
+                        <Link to="/buyer_chat/:artisanId/:productId">
                          chat
                         </Link>
                       </div>
@@ -77,14 +77,14 @@ function IndividualArtistWorks({ url }) {
                         <h1> ₹ 500 </h1>
                       </div>
 
-                      <Link to="/user_chat">
+                      <Link to="/buyer_chat/:artisanId/:productId">
                         <div className="gallery-artistprofile">
                           <img src={artistimg} />
                         </div>
                       </Link>
 
                       <div className="gallery-chat-icon">
-                        <Link to="/user_chat">
+                        <Link to="/buyer_chat/:artisanId/:productId">
                           chat
                         </Link>
                       </div>
@@ -109,14 +109,14 @@ function IndividualArtistWorks({ url }) {
                         <h1> ₹ 500 </h1>
                       </div>
 
-                      <Link to="/user_chat">
+                      <Link to="/buyer_chat/:artisanId/:productId">
                         <div className="gallery-artistprofile">
                           <img src={artistimg} />
                         </div>
                       </Link>
 
                       <div className="gallery-chat-icon">
-                        <Link to="/user_chat">
+                        <Link to="/buyer_chat/:artisanId/:productId">
                          
                         </Link>
                       </div>
@@ -141,14 +141,14 @@ function IndividualArtistWorks({ url }) {
                         <h1> ₹ 500 </h1>
                       </div>
 
-                      <Link to="/user_chat">
+                      <Link to="/buyer_chat/:artisanId/:productId">
                         <div className="gallery-artistprofile">
                           <img src={artistimg} />
                         </div>
                       </Link>
 
                       <div className="gallery-chat-icon">
-                        <Link to="/user_chat">
+                        <Link to="/buyer_chat/:artisanId/:productId">
                          
                         </Link>
                       </div>

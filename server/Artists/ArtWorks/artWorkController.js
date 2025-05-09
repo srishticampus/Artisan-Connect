@@ -98,7 +98,6 @@ const addartworks=(req,res)=>{
   const viewArtWorksById=(req,res)=>{
     artworks.findById({_id:req.params.id}).populate('artistId')
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data obtained successfully",
@@ -122,7 +121,6 @@ const addartworks=(req,res)=>{
 const viewArtWorksByArtistId=(req,res)=>{
   artworks.find({artistId:req.params.id}).populate("artistId")
   .then(data=>{
-    console.log(data);
     res.json({
         status:200,
         msg:"Data obtained successfully",
@@ -153,7 +151,6 @@ if(dataa!=null)
 if(flag==0){
   await artworks.findByIdAndDelete({_id:req.params.id}).exec()
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data removed successfully",

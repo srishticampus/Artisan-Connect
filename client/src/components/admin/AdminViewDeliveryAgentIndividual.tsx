@@ -57,7 +57,7 @@ function AdminViewDeliveryAgentIndividual({ url }) {
 
             <div className="row mb-3">
               <div className="col-md-6">
-                <p><strong>Name:</strong> {delivery?.firstname} {delivery?.lastname}</p>
+                <p><strong>Name:</strong> {delivery?.name} </p>
                 <p><strong>Aadhar:</strong> {delivery?.aadhar}</p>
                 <p><strong>Email:</strong> {delivery?.email}</p>
               </div>

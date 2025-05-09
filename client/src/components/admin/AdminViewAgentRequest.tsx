@@ -49,7 +49,7 @@ function AdminViewAgentRequest() {
                 {deliveryreq.map((a, index) => (
                   <tr key={a._id} className="hover:bg-gray-50">
                     <td className="py-3 px-4">{index + 1}</td>
-                    <td className="py-3 px-4">{a?.firstname}</td>
+                    <td className="py-3 px-4">{a?.name}</td>
                     <td className="py-3 px-4">{a?.email}</td>
                     <td className="py-3 px-4">{a?.city}</td>
                     <td className="py-3 px-4">

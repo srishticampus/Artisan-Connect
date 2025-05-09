@@ -1,5 +1,5 @@
 const orderSchema = require("./orderSchema")
-
+const deliveryschema=require("../Delivery/deliverySchema")
 const addOrder = (req, res) => {
 
 let date = new Date()
@@ -42,7 +42,6 @@ const addOrderFromCart = (req, res) => {
             artistId: x.artistId
         })
         art.save().then(data => {
-            console.log("data saved");
         }).catch(err => {
            console.log(err);
         })
@@ -137,7 +136,6 @@ const deleteOrderById=(req,res)=>{
 
     orderSchema.findByIdAndDelete({_id:req.params.id}).exec()
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data removed successfully",
@@ -156,29 +154,47 @@ const deleteOrderById=(req,res)=>{
   }
 
   
-const viewPendingOrdersForDelivery=(req,res)=>{
-
-    orderSchema.find({deliveryAssigned:'pending'}).populate('artistId')
-    .populate('userid')
-    .populate('artid')
-    .then(data=>{
-      console.log(data);
-      res.json({
-          status:200,
-          msg:"Data obtained successfully",
-          data:data
-      })
+  const viewPendingOrdersForDelivery = async (req, res) => {
     
-  }).catch(err=>{
-    console.log(err);
-      res.json({
-          status:500,
-          msg:"No Data obtained",
-          Error:err
-      })
-  })
-  
-  }
+    try {
+        const deliveryAgentId = req.params.deliveryId;
+        console.log(deliveryAgentId);
+
+        // Get the delivery agent's district
+        const deliveryAgent = await deliveryschema.findById({_id:deliveryAgentId})
+        console.log(deliveryAgent);
+        
+        if (!deliveryAgent) {
+            return res.json({ status: 404, msg: "Delivery agent not found" });
+        }
+
+        const agentDistrict = deliveryAgent.district;
+
+        // Get all orders with pending deliveryAssigned
+        const pendingOrders = await orderSchema.find({ deliveryAssigned: 'pending' })
+            .populate('artistId')
+            .populate('userid')
+            .populate('artid');
+
+        // Filter orders where user's district matches the delivery agent's
+        const filteredOrders = pendingOrders.filter(order => {
+            return order.userid && order.userid.district === agentDistrict;
+        });
+
+        res.json({
+            status: 200,
+            msg: "Filtered data obtained successfully",
+            data: filteredOrders
+        });
+    } catch (err) {
+        console.log(err);
+        res.json({
+            status: 500,
+            msg: "Error fetching data",
+            Error: err
+        });
+    }
+}
 
   
 const updateStatusOfOrdersByOrderId=(req,res)=>{
@@ -187,7 +203,6 @@ const updateStatusOfOrdersByOrderId=(req,res)=>{
         deliveryStatus:req.body.deliveryStatus
     }).exec()
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data updated successfully",
@@ -204,7 +219,39 @@ const updateStatusOfOrdersByOrderId=(req,res)=>{
   })
   
   }
-  
+  const viewOrderHistoryByUserId = async (req, res) => {
+    try {
+        const userId = req.params.userid;
+
+        const orders = await orderSchema.find({ userid: userId })
+            .populate('artistId')
+            .populate('userid')
+            .populate('artid')
+            .populate('deliveryId')
+            .sort({ date: -1 }); // optional: sort newest first
+
+        if (orders.length > 0) {
+            res.json({
+                status: 200,
+                msg: "Order history retrieved successfully",
+                data: orders
+            });
+        } else {
+            res.json({
+                status: 200,
+                msg: "No order history found for this user"
+            });
+        }
+    } catch (err) {
+        console.log(err);
+        res.json({
+            status: 500,
+            msg: "Error retrieving order history",
+            Error: err
+        });
+    }
+}
+
    
 const acceptorderByDeliverAgent=(req,res)=>{
 
@@ -214,7 +261,6 @@ const acceptorderByDeliverAgent=(req,res)=>{
         expectedDeliveryDate:req.body.expectedDeliveryDate
     }).exec()
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data updated successfully",
@@ -238,7 +284,6 @@ const viewOrdersByDeliveryId=(req,res)=>{
     .populate('userid')
     .populate('artid')
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data obtained successfully",

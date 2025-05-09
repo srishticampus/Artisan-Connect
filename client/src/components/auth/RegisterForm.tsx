@@ -24,7 +24,12 @@ const RegisterForm = () => {
   });
 
   const [errors, setErrors] = useState({});
-
+  const keralaDistricts = [
+    "Thiruvananthapuram", "Kollam", "Pathanamthitta", "Alappuzha",
+    "Kottayam", "Idukki", "Ernakulam", "Thrissur", "Palakkad",
+    "Malappuram", "Kozhikode", "Wayanad", "Kannur", "Kasaragod"
+  ];
+  
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     if (type === 'checkbox') {
@@ -175,11 +180,22 @@ const RegisterForm = () => {
             </div>
 
             {/* District */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">District</label>
-              <input name="district" type="text" value={formData.district} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm" />
-              {errors.district && <p className="text-red-500 text-sm">{errors.district}</p>}
-            </div>
+        {/* District Dropdown */}
+<div>
+  <label className="block text-sm font-medium text-gray-700">District</label>
+  <select
+    name="district"
+    value={formData.district}
+    onChange={handleChange}
+    className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm"
+  >
+    <option value="">Select District</option>
+    {keralaDistricts.map((district) => (
+      <option key={district} value={district}>{district}</option>
+    ))}
+  </select>
+  {errors.district && <p className="text-red-500 text-sm">{errors.district}</p>}
+</div>
 
             {/* Pincode */}
             <div>

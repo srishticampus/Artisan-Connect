@@ -52,6 +52,12 @@ import BuyerChat from "./components/Chat/BuyerChat";
 import AdminViewOders from "./components/Orders/AdminViewOders";
 import Addminvieworders from "./components/admin/Addminvieworders";
 import AdminProductview from "./components/admin/AdminProductview";
+import BuyerAddComplaint from "./components/Complaints/BuyerAddComplaint";
+import ArtisanAddComplaint from "./components/Complaints/ArtisanAddComplaint";
+import ViewBuyerComplaints from "./components/Complaints/ViewBuyerComplaints";
+import ViewArtisanComplaints from "./components/Complaints/ViewArtisanComplaints";
+import AdminViewComplaints from "./components/Complaints/AdminViewComplaints";
+import FavoriteList from "./components/Buyer/FavoriteList";
 
 // #5046f4
 function App() {
@@ -76,8 +82,7 @@ function App() {
         <Route path="/buyer/viewproductlist" element={<ProductList />} />
         <Route path="/buyer/trackorder" element={<TrackOrder url={imageBaseUrl} />} />
         <Route path="/buyer/forgetpassword" element={<BuyerForgotpswd />} />
-        <Route path="/user_chat" element={<BuyerChat url={imageBaseUrl} />} />
-
+        <Route path="/buyer_chat/:artisanId/:productId" element={<BuyerChat />} />
         <Route
           path="/buyer/viewproductdetails/:productid"
           element={<ProductDetail />}
@@ -167,9 +172,34 @@ function App() {
           path="/admin/orders"
           element={<Addminvieworders url={imageBaseUrl} />}
         />
-         <Route
+        <Route
           path="/admin/products"
           element={<AdminProductview url={imageBaseUrl} />}
+        />
+
+        <Route
+          path="/buyer/addComplaint"
+          element={<BuyerAddComplaint url={imageBaseUrl} />}
+        />
+        <Route
+          path="/artisan/addComplaint/"
+          element={<ArtisanAddComplaint url={imageBaseUrl} />}
+        />
+         <Route
+          path="/buyer/viewComplaint"
+          element={<ViewBuyerComplaints url={imageBaseUrl} />}
+        />
+        <Route
+          path="/artisan/viewComplaint/"
+          element={<ViewArtisanComplaints url={imageBaseUrl} />}
+        />
+         <Route
+          path="/admin/viewComplaints/"
+          element={<AdminViewComplaints url={imageBaseUrl} />}
+        />
+        <Route
+          path="/buyer/viewfavorites/"
+          element={<FavoriteList url={imageBaseUrl} />}
         />
       </Routes>
 

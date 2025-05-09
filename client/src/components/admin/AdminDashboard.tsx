@@ -128,7 +128,7 @@ const navigate=useNavigate()
     navigate("/admin/orders")
   }
   const complaints=()=>{
-    navigate("/admin/complaints")
+    navigate("/admin/viewComplaints/")
   }
   return (
     <>

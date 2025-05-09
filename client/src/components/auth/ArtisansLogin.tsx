@@ -24,10 +24,12 @@ function ArtisansLogin() {
       console.log(response, "response");
 
       if (response.data.status == 200) {
+        console.log(response);
+        
         localStorage.setItem("artisanid", response.data.data._id);
         navigate("/artisan/homepage");
       } else {
-        setError(response.data.message || "Login failed");
+        setError(response.data.msg || "Login failed");
       }
     } catch (err: any) {
       setError(err.response?.data?.message || "An error occurred during login");
@@ -47,6 +49,11 @@ function ArtisansLogin() {
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form className="space-y-6" onSubmit={handleSubmit}>
+              {error && (
+                <div className="text-red-500 text-sm text-center">
+                  {error}
+                </div>
+              )}
               <div>
                 <label
                   htmlFor="email"
@@ -168,7 +175,7 @@ function ArtisansLogin() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

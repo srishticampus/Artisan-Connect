@@ -21,7 +21,9 @@ const Navbar = () => {
 
           <div className="flex items-center space-x-4">
             <button className="p-2 hover:bg-gray-100 rounded-full">
+            <Link to={"/buyer/viewfavorites/"}>
               <Heart className="h-6 w-6 text-gray-600" />
+              </Link>
             </button>
             <button className="p-2 hover:bg-gray-100 rounded-full">
               <Link to={"/user_cart"}>
@@ -47,6 +49,8 @@ const Navbar = () => {
             <Link to="/view_artists" className="text-gray-600 hover:text-indigo-600">Artisans</Link>
             <Link to="/view_orders" className="text-gray-600 hover:text-indigo-600">Orders</Link>
             <Link to="/buyer/trackorder" className="text-gray-600 hover:text-indigo-600">Track Orders</Link>
+            <Link to="/buyer/addComplaint" className="text-gray-600 hover:text-indigo-600">Complaint</Link>
+
           </div>
         </div>
       </div>
