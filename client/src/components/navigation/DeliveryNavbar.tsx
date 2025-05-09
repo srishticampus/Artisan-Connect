@@ -1,8 +1,14 @@
 import React from 'react';
-import { Search, ShoppingCart, Heart, User, Menu } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Search, ShoppingCart, Heart, User, Menu,LogIn } from 'lucide-react';
+import { Link,useNavigate } from 'react-router-dom';
 
 const DeliveryNavbar = () => {
+  const navigate = useNavigate()
+  const handlLogout = () => {
+    alert("logged out")
+    localStorage.removeItem("artisanid")
+    navigate("/deliveryagent/login")
+  }
   return (
     <nav className="bg-white shadow-md">
       {/* Top Bar */}
@@ -25,6 +31,9 @@ const DeliveryNavbar = () => {
            
             <button className="p-2 hover:bg-gray-100 rounded-full">
              <Link to={"/deliveryagent/profile"} ><User className="h-6 w-6 text-gray-600" /></Link>
+            </button>
+            <button className="p-2 hover:bg-gray-100 rounded-full">
+              <LogIn className="h-6 w-6 text-gray-600" onClick={handlLogout} />
             </button>
           </div>
 

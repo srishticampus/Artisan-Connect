@@ -5,6 +5,7 @@ import axiosInstance from '../../BaseApi/Baseurl'
 import { toast } from "react-toastify";
 import ArtisanNavbar from '../navigation/ArtisanNavbar';
 import Footer from '../footer/Footer';
+import DeliveryNavbar from '../navigation/DeliveryNavbar';
 
 function Deliveryprofile({url}) {
     const userid=localStorage.getItem("deliveryagentid")
@@ -120,7 +121,7 @@ const handleEdit = () => {
     
     return (
       <>
-      <ArtisanNavbar/>
+      <DeliveryNavbar/>
         <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
             {/* Cover + Profile */}

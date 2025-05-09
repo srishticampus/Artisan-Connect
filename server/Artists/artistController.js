@@ -45,7 +45,6 @@ const registerArtist=(req,res)=>{
 
 //Login Artist 
 const loginArtist=(req,res)=>{
-  console.log(req.body);
   
     const email=req.body.email
     const password=req.body.password
@@ -142,7 +141,6 @@ const loginArtist=(req,res)=>{
   const viewArtistById=(req,res)=>{
     Artists.findOne({_id:req.params.id}).exec()
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data obtained successfully",
@@ -165,7 +163,6 @@ const loginArtist=(req,res)=>{
     Artists.findByIdAndDelete({_id:req.params.id}).exec()
     .then(data=>{
     emps=data
-      console.log(data);
       res.json({
           status:200,
           msg:"Data removed successfully",

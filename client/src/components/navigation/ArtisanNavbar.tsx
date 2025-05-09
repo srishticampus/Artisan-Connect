@@ -24,13 +24,13 @@ const ArtisanNavbar = () => {
           {/* Search Bar */}
           <div className="hidden md:flex flex-1 max-w-2xl mx-6">
             <div className="relative w-full">
-             
+
             </div>
           </div>
 
           {/* Navigation Icons */}
           <div className="flex items-center space-x-4">
-          
+
             <button className="p-2 hover:bg-gray-100 rounded-full">
               <Link to={"/artisan/profile"}> <User className="h-6 w-6 text-gray-600" /></Link>
             </button>
@@ -57,10 +57,11 @@ const ArtisanNavbar = () => {
             <Link to="/artisan/order" className="text-gray-600 hover:text-indigo-600">
               Orders
             </Link>
-            <Link to="/artisan/chat" className="text-gray-600 hover:text-indigo-600">
-              Chat
+            <Link to="/artisan/chat" className="text-gray-600 hover:text-indigo-600">Chat
             </Link>
-
+            <Link to="/artisan/addComplaint/" className="text-gray-600 hover:text-indigo-600">
+              Complaints
+            </Link>
           </div>
         </div>
       </div>

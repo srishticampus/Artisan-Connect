@@ -13,7 +13,7 @@ function DeliveryRoutes() {
   });
 
   useEffect(() => {
-    axiosInstance.post(`viewPendingOrdersForDelivery`)
+    axiosInstance.post(`viewPendingOrdersForDelivery/`+agentid)
       .then((res) => {
         setDelivery(res.data.data);
       })

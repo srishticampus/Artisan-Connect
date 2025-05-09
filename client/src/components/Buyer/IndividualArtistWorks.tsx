@@ -97,14 +97,13 @@ function IndividualArtistWorks({ url }) {
                         <button  onClick={() => cartfn(art._id, art.artistId?._id)} className="btn btn-outline-primary btn-sm">
                           ADD TO CART
                         </button>
-                        <Link to="/user_chat" className="flex items-center space-x-2">
+                        {/* <Link to="/buyer_chat/:artisanId/:productId" className="flex items-center space-x-2"> */}
                           <img
                             src={`${url}/${art.artistId.image.filename}`}
                             alt="artist"
                             className="w-8 h-8 rounded-full border"
                           />
-                          <span className="text-sm text-blue-600">Chat</span>
-                        </Link>
+                        {/* </Link> */}
                       </div>
                     </div>
                   </div>

@@ -14,8 +14,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("licence");
 //delivery Registration 
 const registerdelivery=async (req,res)=>{
-  console.log(req.file);
-  console.log(req.body);
     const newdelivery=new deliverys({
         name:req.body.name,
         vehicleRegNumber:req.body.vehicleRegNumber,
@@ -212,7 +210,6 @@ const logindelivery=(req,res)=>{
   const viewdeliveryById=(req,res)=>{
     deliverys.findById({_id:req.params.id}).exec()
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data obtained successfully",
@@ -235,7 +232,6 @@ const logindelivery=(req,res)=>{
     deliverys.findByIdAndDelete({_id:req.params.id}).exec()
     .then(data=>{
     emps=data
-      console.log(data);
       res.json({
           status:200,
           msg:"Data removed successfully",

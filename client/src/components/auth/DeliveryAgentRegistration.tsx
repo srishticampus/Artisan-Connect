@@ -26,7 +26,12 @@ function DeliveryAgentRegistration() {
     // image: null,
     agree: false,
   });
-
+  const keralaDistricts = [
+    "Thiruvananthapuram", "Kollam", "Pathanamthitta", "Alappuzha",
+    "Kottayam", "Idukki", "Ernakulam", "Thrissur", "Palakkad",
+    "Malappuram", "Kozhikode", "Wayanad", "Kannur", "Kasaragod"
+  ];
+  
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -128,7 +133,6 @@ function DeliveryAgentRegistration() {
             { label: "Email", name: "email", type: "email" },
             { label: "Contact", name: "contact", type: "tel" },
             { label: "City", name: "city" },
-            { label: "District", name: "district" },
             { label: "Pincode", name: "pincode" },
             { label: "Age", name: "age" },
             { label: "Aadhar", name: "aadhar" },
@@ -163,6 +167,23 @@ function DeliveryAgentRegistration() {
             />
             {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
           </div> */}
+          {/* District Dropdown */}
+<div>
+  <label className="block text-sm font-medium text-gray-700">District</label>
+  <select
+    name="district"
+    value={formData.district}
+    onChange={handleChange}
+    className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm"
+  >
+    <option value="">Select District</option>
+    {keralaDistricts.map((district) => (
+      <option key={district} value={district}>{district}</option>
+    ))}
+  </select>
+  {errors.district && <p className="text-red-500 text-sm">{errors.district}</p>}
+</div>
+
 
           {/* Licence Upload */}
           <div>

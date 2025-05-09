@@ -15,7 +15,6 @@ const upload = multer({ storage: storage }).single("image");
 //User Registration 
 
 const registerUser=(req,res)=>{
-console.log(req.body);
 
 
     const newUser=new users({
@@ -154,7 +153,6 @@ const loginUser=(req,res)=>{
   const viewUserById=(req,res)=>{
     users.findOne({_id:req.params.id}).exec()
     .then(data=>{
-      console.log(data);
       res.json({
           status:200,
           msg:"Data obtained successfully",
@@ -177,7 +175,6 @@ const loginUser=(req,res)=>{
     users.findByIdAndDelete({_id:req.params.id}).exec()
     .then(data=>{
     emps=data
-      console.log(data);
       res.json({
           status:200,
           msg:"Data removed successfully",
