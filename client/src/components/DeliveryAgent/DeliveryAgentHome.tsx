@@ -6,6 +6,7 @@ import { Container, Row, Col, Card, Button, Image } from "react-bootstrap";
 import deliveryimage from "../../assets/deliveryimage.jpg";
 import deliveryImg from "../../assets/delivery-banner.jpg";
 import confirmPic from "../../assets/confirm-delivery.jpg";
+import { Link } from "react-router-dom";
 
 // Declare types
 interface Delivery {
@@ -38,14 +39,14 @@ const DeliveryAgentHome: React.FC = () => {
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
-                    <a href="#" className="btn btn-dark px-4 py-2">
+                    <Link  to="/delivery_agent_jobs" className="btn btn-dark px-4 py-2">
                       View Deliveries
-                    </a>
+                    </Link>
                   </div>
                   <div className="mt-3 sm:mt-0 sm:ml-3">
-                    <a href="#" className="btn btn-outline-dark px-4 py-2">
+                    <Link to="/deliveryagent/profile" className="btn btn-outline-dark px-4 py-2">
                       Profile Settings
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

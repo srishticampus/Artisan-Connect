@@ -18,7 +18,7 @@ function ArtistOrdrers({ url }) {
 
         // Fetch average rating for each artwork
         const ratingPromises = orders.map(async (order) => {
-          const artId = order.artid?._id;
+          const artId = order?.artid?._id;
           if (!artId) return { artId: null, avgRating: "N/A" };
 
           try {
@@ -90,9 +90,9 @@ function ArtistOrdrers({ url }) {
                         </span>
                       </td>
                       <td>
-                        {a.deliveryId ? (
+                        {a?.deliveryId ? (
                           <>
-                            {a.deliveryId.firstname}, {a.deliveryId.contact}
+                            {a?.deliveryId.firstname}, {a?.deliveryId.contact}
                           </>
                         ) : (
                           <span className="text-gray-500">Not picked up</span>

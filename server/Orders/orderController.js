@@ -158,11 +158,11 @@ const deleteOrderById=(req,res)=>{
     
     try {
         const deliveryAgentId = req.params.deliveryId;
-        console.log(deliveryAgentId);
+        // console.log(deliveryAgentId);
 
         // Get the delivery agent's district
         const deliveryAgent = await deliveryschema.findById({_id:deliveryAgentId})
-        console.log(deliveryAgent);
+        // console.log(deliveryAgent);
         
         if (!deliveryAgent) {
             return res.json({ status: 404, msg: "Delivery agent not found" });

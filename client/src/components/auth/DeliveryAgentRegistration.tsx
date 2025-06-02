@@ -46,44 +46,47 @@ function DeliveryAgentRegistration() {
   };
 
   const validateForm = () => {
-    const newErrors = {};
-    const passwordRegex =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{6,}$/;
+  const newErrors = {};
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{6,}$/;
 
-    if (!formData.name.trim()) newErrors.name = "name is required";
-    if (!formData.housename.trim())
-      newErrors.housename = "House name is required";
-    if (!formData.city.trim()) newErrors.city = "City is required";
-    if (!formData.district.trim()) newErrors.district = "District is required";
-    if (!formData.pincode.trim()) newErrors.pincode = "Pincode is required";
-    if (!formData.contact.trim())
-      newErrors.contact = "Contact number is required";
-    if (!formData.age.trim()) newErrors.age = "Age is required";
-    if (!formData.aadhar.trim()) newErrors.aadhar = "Aadhar is required";
-    if (!formData.licence) newErrors.licence = "License file is required";
-    if (!formData.vehicleRegNumber.trim())
-      newErrors.vehicleRegNumber = "Vehicle registration number is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    // if (!formData.image) newErrors.image = 'Photo is required';
+  if (!formData.name.trim()) newErrors.name = "name is required";
+  if (!formData.housename.trim())
+    newErrors.housename = "House name is required";
+  if (!formData.city.trim()) newErrors.city = "City is required";
+  if (!formData.district.trim()) newErrors.district = "District is required";
+  if (!formData.pincode.trim()) newErrors.pincode = "Pincode is required";
+  if (!formData.contact.trim())
+    newErrors.contact = "Contact number is required";
 
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (!passwordRegex.test(formData.password)) {
-      newErrors.password =
-        "Password must be at least 6 characters, include a special character, a number, and a capital letter";
-    }
+  // ✅ Age validation
+  if (!formData.age.trim()) {
+    newErrors.age = "Age is required";
+  } else if (isNaN(formData.age) || parseInt(formData.age) < 18) {
+    newErrors.age = "Age must be 18 or older";
+  }
 
-    // if (formData.confirmPassword !== formData.password) {
-    //   newErrors.confirmPassword = 'Passwords do not match';
-    // }
+  if (!formData.aadhar.trim()) newErrors.aadhar = "Aadhar is required";
+  if (!formData.licence) newErrors.licence = "License file is required";
+  if (!formData.vehicleRegNumber.trim())
+    newErrors.vehicleRegNumber = "Vehicle registration number is required";
+  if (!formData.email.trim()) newErrors.email = "Email is required";
 
-    if (!formData.agree) {
-      newErrors.agree = "You must agree to the terms and conditions";
-    }
+  if (!formData.password) {
+    newErrors.password = "Password is required";
+  } else if (!passwordRegex.test(formData.password)) {
+    newErrors.password =
+      "Password must be at least 6 characters, include a special character, a number, and a capital letter";
+  }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  if (!formData.agree) {
+    newErrors.agree = "You must agree to the terms and conditions";
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

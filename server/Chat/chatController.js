@@ -2,7 +2,7 @@ const Message = require('../Chat/chatSchema');
 const mongoose=require('mongoose')
 // Send a new message
 exports.sendMessage = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
 
     try {
         const { msg, fromUser, fromRole, toUser, toRole, productId } = req.body;
