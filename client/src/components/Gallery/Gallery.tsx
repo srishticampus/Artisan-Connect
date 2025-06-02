@@ -124,21 +124,21 @@ function Gallery({ url }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
           {currentArt.length > 0 ? (
             currentArt.map((a) => (
-              <div key={a._id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div key={a?._id} className="bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="relative">
-                  <Link to={`/viewsinglework_art/${a._id}`}>
+                  <Link to={`/viewsinglework_art/${a?._id}`}>
                     <img
                       src={`${url}/${a?.file?.filename}`}
-                      alt={a.name}
+                      alt={a?.name}
                       className="w-full h-64 object-cover"
                     />
                   </Link>
                   <button
                     className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md"
-                    onClick={() => toggleFavorite(a._id)}
+                    onClick={() => toggleFavorite(a?._id)}
                   >
                     <Heart
-                      className={`h-5 w-5 ${favorites.includes(a._id)
+                      className={`h-5 w-5 ${favorites.includes(a?._id)
                         ? "text-red-500 fill-red-500"
                         : "text-gray-600"
                         }`}
@@ -146,30 +146,30 @@ function Gallery({ url }) {
                   </button>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold truncate">{a.name}</h3>
-                  <p className="text-indigo-600 font-bold mt-1 mb-2">₹ {a.price}</p>
+                  <h3 className="text-xl font-semibold truncate">{a?.name}</h3>
+                  <p className="text-indigo-600 font-bold mt-1 mb-2">₹ {a?.price}</p>
 
                   <div className="flex items-center mb-2">
                     {Array.from({ length: 5 }, (_, i) => (
-                      <span key={i} className={i < Math.round(averageRatings[a._id] || 0) ? "text-yellow-400" : "text-gray-300"}>
+                      <span key={i} className={i < Math.round(averageRatings[a?._id] || 0) ? "text-yellow-400" : "text-gray-300"}>
                         ★
                       </span>
                     ))}
                     <span className="ml-2 text-sm text-gray-600">
-                      ({(averageRatings[a._id] || 0).toFixed(1)})
+                      ({(averageRatings[a?._id] || 0).toFixed(1)})
                     </span>
                   </div>
 
                   <div className="flex justify-between items-center mt-4">
-                    <Link to={`/buyer_chat/${a.artistId?._id}/${a._id}`}>
+                    <Link to={`/buyer_chat/${a?.artistId?._id}/${a?._id}`} className="text-decoration-none text-dark">
                       <img
                         src={`${url}/${a?.artistId?.image?.filename}`}
                         alt="artist"
                         className="w-10 h-10 rounded-full border object-cover"
-                      />
+                      /> Chat
                     </Link>
                     <button
-                      onClick={() => handleAddToCart(a._id, a.artistId?._id)}
+                      onClick={() => handleAddToCart(a?._id, a?.artistId?._id)}
                       className="bg-indigo-600 text-white px-4 py-2 rounded-md"
                     >
                       Add to Cart

@@ -45,10 +45,10 @@ function AdminViewComplaints() {
                                         key={index}
                                         className="card border p-4 rounded-lg shadow bg-white"
                                     >
-                                        <p className="mb-1"><strong>Name:</strong> {complaint.buyerId?.firstname || 'N/A'}</p>
-                                        <p className="mb-1"><strong>Email:</strong> {complaint.buyerId?.email || 'N/A'}</p>
-                                        <p className="mb-1"><strong>Date:</strong> {new Date(complaint.date).toLocaleDateString()}</p>
-                                        <p className="mb-1"><strong>Description:</strong> {complaint.description}</p>
+                                        <p className="mb-1"><strong>Name:</strong> {complaint?.buyerId?.firstname || 'N/A'}</p>
+                                        <p className="mb-1"><strong>Email:</strong> {complaint?.buyerId?.email || 'N/A'}</p>
+                                        <p className="mb-1"><strong>Date:</strong> {new Date(complaint?.date).toLocaleDateString()}</p>
+                                        <p className="mb-1"><strong>Description:</strong> {complaint?.description}</p>
                                     </div>
                                 ))}
                             </div>
@@ -67,10 +67,10 @@ function AdminViewComplaints() {
                                         key={index}
                                         className="card border p-4 rounded-lg shadow bg-white"
                                     >
-                                        <p className="mb-1"><strong>Name:</strong> {complaint.artisanId?.firstname || 'N/A'}</p>
-                                        <p className="mb-1"><strong>Email:</strong> {complaint.artisanId?.email || 'N/A'}</p>
-                                        <p className="mb-1"><strong>Date:</strong> {new Date(complaint.date).toLocaleDateString()}</p>
-                                        <p className="mb-1"><strong>Description:</strong> {complaint.description}</p>
+                                        <p className="mb-1"><strong>Name:</strong> {complaint?.artisanId?.firstname || 'N/A'}</p>
+                                        <p className="mb-1"><strong>Email:</strong> {complaint?.artisanId?.email || 'N/A'}</p>
+                                        <p className="mb-1"><strong>Date:</strong> {new Date(complaint?.date).toLocaleDateString()}</p>
+                                        <p className="mb-1"><strong>Description:</strong> {complaint?.description}</p>
                                     </div>
                                 ))}
                             </div>

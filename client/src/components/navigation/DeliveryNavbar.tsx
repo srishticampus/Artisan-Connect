@@ -53,8 +53,8 @@ const DeliveryNavbar = () => {
             <Link to="/deliveryagent/homepage" className="text-gray-600 hover:text-indigo-600">Home</Link>
             <Link to="/delivery_agent_routes" className="text-gray-600 hover:text-indigo-600">Delivery request</Link>
             <Link to="/delivery_agent_jobs" className="text-gray-600 hover:text-indigo-600">Job</Link>
-            <Link to="" className="text-gray-600 hover:text-indigo-600">New Arrivals</Link>
-            <Link to="" className="text-gray-600 hover:text-indigo-600">Deals</Link>
+            {/* <Link to="" className="text-gray-600 hover:text-indigo-600">New Arrivals</Link>
+            <Link to="" className="text-gray-600 hover:text-indigo-600">Deals</Link> */}
           </div>
         </div>
       </div>

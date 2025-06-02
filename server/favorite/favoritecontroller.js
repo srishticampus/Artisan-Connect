@@ -26,12 +26,12 @@ exports.addToFavorites = async (req, res) => {
 exports.getUserFavorites = async (req, res) => {
   try {
     const { userId } = req.params;
-console.log(userId,"userId");
+// console.log(userId,"userId");
 
     const favorites = await Favorite.find({ userId })
       .populate("productId") // populates product/artwork info
       .sort({ addedAt: -1 });
-console.log(favorites,"favorites");
+// console.log(favorites,"favorites");
 
     res.status(200).json({ success: true, data: favorites });
   } catch (err) {

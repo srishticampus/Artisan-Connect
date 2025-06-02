@@ -135,7 +135,7 @@ const handleEdit = () => {
                 <h2 className="mt-2 text-xl font-bold text-gray-800">
                   {data?.name}
                 </h2>
-                <p className="text-sm text-gray-500">Buyer Profile</p>
+                <p className="text-sm text-gray-500">Delivery Agent Profile</p>
               </div>
             </div>
       

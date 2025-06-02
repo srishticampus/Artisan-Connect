@@ -66,12 +66,12 @@ function BuyerChat() {
                 <div
                   key={idx}
                   className={`p-2 max-w-xs rounded-lg ${
-                    msg.fromUser === fromUser
+                    msg?.fromUser === fromUser
                       ? 'bg-indigo-100 self-end ml-auto'
                       : 'bg-gray-200 self-start mr-auto'
                   }`}
                 >
-                  {msg.msg}
+                  {msg?.msg}
                 </div>
               ))
             )}

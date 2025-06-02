@@ -33,8 +33,8 @@ function ViewBuyerComplaints() {
                     <ul className="list-group">
                         {complaints.map((item, index) => (
                             <li key={index} className="list-group-item mb-2">
-                                <strong>Date:</strong> {new Date(item.date).toLocaleDateString()}<br />
-                                <strong>Description:</strong> {item.description}
+                                <strong>Date:</strong> {new Date(item?.date).toLocaleDateString()}<br />
+                                <strong>Description:</strong> {item?.description}
                             </li>
                         ))}
                     </ul>

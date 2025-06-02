@@ -28,7 +28,7 @@ const ArtisanChat = () => {
               className=" border-b cursor-pointer hover:bg-gray-100"
               onClick={() => setActiveChat(chat)}
             >
-              <p className="font-medium text-primary"> {chat.user.firstname||chat.toUser}<p className="text-sm text-gray-500">Product : {chat.product.name}</p></p>
+              <p className="font-medium text-primary"> {chat?.user?.firstname||chat?.toUser}<p className="text-sm text-gray-500">Product : {chat?.product?.name}</p></p>
               
             </div>
           ))}
@@ -82,13 +82,13 @@ const ChatBox = ({ chat, artisanId }) => {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`flex ${msg.fromUser === artisanId ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${msg?.fromUser === artisanId ? 'justify-end' : 'justify-start'}`}
           >
             <div
               className={`p-3 rounded-lg max-w-md text-sm 
-                ${msg.fromUser === artisanId ? 'bg-indigo-100 text-right' : 'bg-gray-200 text-left'}`}
+                ${msg?.fromUser === artisanId ? 'bg-indigo-100 text-right' : 'bg-gray-200 text-left'}`}
             >
-              {msg.msg}
+              {msg?.msg}
             </div>
           </div>
         ))}

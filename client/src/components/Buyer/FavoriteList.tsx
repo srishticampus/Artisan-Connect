@@ -26,7 +26,7 @@ const FavoriteList = ({url}) => {
                 userId,
                 productId,
             });
-            setFavorites((prev) => prev.filter((fav) => fav.productId._id !== productId));
+            setFavorites((prev) => prev.filter((fav) => fav?.productId?._id !== productId));
         } catch (error) {
             console.error("Error removing favorite:", error);
         }
@@ -37,19 +37,19 @@ const FavoriteList = ({url}) => {
             <Navbar />
             <div className="container mt-4">
                 <h3>Your Favorite Products</h3>
-                {favorites.length === 0 ? (
+                {favorites?.length === 0 ? (
                     <p>No favorites added yet.</p>
                 ) : (
                     <div className="row">
                         {favorites.map((fav) => {
-                            const product = fav.productId;
+                            const product = fav?.productId;
                             return (
-                                <div key={fav._id} className="col-md-4 mb-4">
+                                <div key={fav?._id} className="col-md-4 mb-4">
                                     <div className="card">
                                         {product?.file?.filename && (
                                             <img
-                                                src={`${url}/${product.file.filename}`}
-                                                alt={product.name}
+                                                src={`${url}/${product?.file?.filename}`}
+                                                alt={product?.name}
                                                 className="card-img-top"
                                                 style={{ height: "200px", objectFit: "cover" }}
                                             />
