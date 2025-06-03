@@ -90,10 +90,10 @@ function TrackOrder({ url }) {
               </tr>
             </thead>
             <tbody>
-              {order.length > 0 ? (
+              {order?.length > 0 ? (
                 order.map((a, index) => {
                   const dateTime = new Date(a?.date);
-                  const dateOnly = dateTime.toISOString().split("T")[0];
+                  const dateOnly = dateTime?.toISOString().split("T")[0];
                   return (
                     <tr
                       key={index}
@@ -103,10 +103,10 @@ function TrackOrder({ url }) {
                       }}
                     >
                       <td style={tdStyle}>{dateOnly}</td>
-                      <td style={tdStyle}>{a.expectedDeliveryDate}</td>
+                      <td style={tdStyle}>{a?.expectedDeliveryDate}</td>
                       <td style={tdStyle}>
-                        {a.deliveryId
-                          ? `${a.deliveryId.name}, ${a.deliveryId.contact}`
+                        {a?.deliveryId
+                          ? `${a?.deliveryId?.name}, ${a?.deliveryId?.contact}`
                           : "Order not picked up"}
                       </td>
                       <td
@@ -127,7 +127,7 @@ function TrackOrder({ url }) {
                       <td style={tdStyle}>
                         <button
                           onClick={() => {
-                            setSelectedProduct(a.artid._id);
+                            setSelectedProduct(a?.artid?._id);
                             setShowModal(true);
                           }}
                           className="bg-indigo-600 text-white px-3 py-1 rounded"
