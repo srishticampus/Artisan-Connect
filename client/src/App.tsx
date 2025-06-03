@@ -58,6 +58,7 @@ import ViewBuyerComplaints from "./components/Complaints/ViewBuyerComplaints";
 import ViewArtisanComplaints from "./components/Complaints/ViewArtisanComplaints";
 import AdminViewComplaints from "./components/Complaints/AdminViewComplaints";
 import FavoriteList from "./components/Buyer/FavoriteList";
+import ChatBot from "./components/chatbot/ChatBot";
 
 // #5046f4
 function App() {
@@ -185,7 +186,7 @@ function App() {
           path="/artisan/addComplaint/"
           element={<ArtisanAddComplaint url={imageBaseUrl} />}
         />
-         <Route
+        <Route
           path="/buyer/viewComplaint"
           element={<ViewBuyerComplaints url={imageBaseUrl} />}
         />
@@ -193,7 +194,7 @@ function App() {
           path="/artisan/viewComplaint/"
           element={<ViewArtisanComplaints url={imageBaseUrl} />}
         />
-         <Route
+        <Route
           path="/admin/viewComplaints/"
           element={<AdminViewComplaints url={imageBaseUrl} />}
         />
@@ -201,6 +202,8 @@ function App() {
           path="/buyer/viewfavorites/"
           element={<FavoriteList url={imageBaseUrl} />}
         />
+        <Route path="/chatbot" element={<ChatBot />} />
+
       </Routes>
 
     </BrowserRouter>
