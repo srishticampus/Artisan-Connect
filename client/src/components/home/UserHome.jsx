@@ -4,7 +4,7 @@ import Hero from "./Hero";
 import FeaturedArtisans from "./FeaturedArtisans";
 import Footer from "../footer/Footer";
 import categoryImg from "../../assets/category3.jpg";
-
+import { FaRobot } from "react-icons/fa";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import "./BuyersHomePage.css";
 import bannerImg from "../../assets/buyers-banner.jpg";
@@ -16,6 +16,7 @@ import product2 from "../../assets/product2.jpg";
 import lakshmi from "../../assets/lakshmi.jpg";
 import ravi from "../../assets/ravi.jpg";
 import meena from "../../assets/meena.jpg";
+import { Link } from "react-router-dom";
 
 function UserHome() {
   return (
@@ -161,6 +162,15 @@ function UserHome() {
               </Row>
             </Container>
           </section>
+          {/* Floating Chatbot Icon */}
+          <Link to="/chatbot">
+          <div
+            className="fixed bottom-5 right-5 bg-indigo-600 text-white p-4 rounded-full shadow-lg z-50 cursor-pointer hover:bg-indigo-700 transition"
+            title="Chat with us"
+          >
+            <FaRobot size={24} />
+          </div></Link>
+
         </div>
 
         <main className="flex-grow">
@@ -169,6 +179,7 @@ function UserHome() {
         </main>
         <Footer />
       </div>
+      
     </div>
   );
 }

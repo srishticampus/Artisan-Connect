@@ -64,7 +64,7 @@ const DeliveryAgentHome: React.FC = () => {
       </div>
 
       {/* Assigned Deliveries Section */}
-      <section className="dashboard-section">
+      {/* <section className="dashboard-section">
         <Container>
           <h2 className="section-title">Assigned Deliveries</h2>
           <Row className="gy-4">
@@ -93,7 +93,7 @@ const DeliveryAgentHome: React.FC = () => {
             ))}
           </Row>
         </Container>
-      </section>
+      </section> */}
 
       {/* Welcome Message Section */}
       <section className="py-5 bg-light mt-5 text-center">
