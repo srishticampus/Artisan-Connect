@@ -83,7 +83,13 @@ const handleEdit = () => {
         toast.warning("Pincode number must be a 6-digit number");
         return;
       }
+    if (editedProfile.age.trim()) {
+       toast.warning("Age is required");
+   
+  } else if (isNaN(editedProfile.age) || parseInt(editedProfile.age) < 18) {
+     toast.warning("Age must be 18 or older");
     
+  }
       const formData = new FormData();
       formData.append("name", editedProfile.name);
       formData.append("vehicleRegNumber", editedProfile.vehicleRegNumber);
