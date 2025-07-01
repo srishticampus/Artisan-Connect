@@ -15,18 +15,34 @@ function Gallery({ url }) {
 
   const userid = localStorage.getItem("buyerid");
   const productsPerPage = 6;
-
   const fetchAllArtworks = useCallback(async () => {
-    try {
-      const res = await axiosInstance.post(`/viewArtworks`);
-      const artworksData = res.data.data || [];
-      setArtworks(artworksData);
-      fetchAllAverageRatings(artworksData);
-    } catch (error) {
-      console.error("Error fetching artworks:", error);
-      setErrorMessage("Failed to fetch artworks.");
-    }
-  }, []);
+  try {
+    const res = await axiosInstance.post(`/viewArtworks`);
+    const artworksData = res.data.data || [];
+
+    // ✅ Filter only artworks with status "available"
+    const availableArtworks = artworksData.filter((art) => art.status === "available");
+
+    setArtworks(availableArtworks);
+    fetchAllAverageRatings(availableArtworks);
+  } catch (error) {
+    console.error("Error fetching artworks:", error);
+    setErrorMessage("Failed to fetch artworks.");
+  }
+}, []);
+
+
+  // const fetchAllArtworks = useCallback(async () => {
+  //   try {
+  //     const res = await axiosInstance.post(`/viewArtworks`);
+  //     const artworksData = res.data.data || [];
+  //     setArtworks(artworksData);
+  //     fetchAllAverageRatings(artworksData);
+  //   } catch (error) {
+  //     console.error("Error fetching artworks:", error);
+  //     setErrorMessage("Failed to fetch artworks.");
+  //   }
+  // }, []);
 
   const fetchAllAverageRatings = async (artworksList) => {
     const ratings = {};
@@ -168,6 +184,7 @@ function Gallery({ url }) {
                         className="w-10 h-10 rounded-full border object-cover"
                       /> Chat
                     </Link>
+                    
                     <button
                       onClick={() => handleAddToCart(a?._id, a?.artistId?._id)}
                       className="bg-indigo-600 text-white px-4 py-2 rounded-md"

@@ -1,58 +1,122 @@
 const orderSchema = require("./orderSchema")
 const deliveryschema=require("../Delivery/deliverySchema")
-const addOrder = (req, res) => {
+const artworks=require("../Artists/ArtWorks/artworkSchema")
+// const addOrder = (req, res) => {
 
-let date = new Date()
-    const art = new orderSchema({
-        userid: req.body.userid,
-        artid: req.body.artid,
-      date:date,
-        artistId: req.body.artistId
-    })
-    art.save().then(data => {
-        res.json({
-            status: 200,
-            msg: "Inserted successfully",
-            data: data
-        })
-    }).catch(err => {
-        res.json({
-            status: 500,
-            msg: "Data not Inserted",
-            Error: err
-        })
-    })
-}
+// let date = new Date()
+//     const art = new orderSchema({
+//         userid: req.body.userid,
+//         artid: req.body.artid,
+//       date:date,
+//         artistId: req.body.artistId
+//     })
+//     art.save().then(data => {
+//         res.json({
+//             status: 200,
+//             msg: "Inserted successfully",
+//             data: data
+//         })
+//     }).catch(err => {
+//         res.json({
+//             status: 500,
+//             msg: "Data not Inserted",
+//             Error: err
+//         })
+//     })
+// }
 // Add cart -- finished
 
+const addOrder =async (req, res) => {
+  let date = new Date();
+  const art =await new orderSchema({
+    userid: req.body.userid,
+    artid: req.body.artid,
+    date: date,
+    artistId: req.body.artistId,
+  });
 
+  art.save()
+    .then(async (data) => {
+      // 🔁 Update artwork status to 'sold'
+      await artworks.findByIdAndUpdate(req.body.artid, { status: "sold" });
 
-const addOrderFromCart = (req, res) => {
-
-    let date = new Date()
-    let cartitems=req.body.cartitems
-
-    cartitems.map(x=>{
-
-    
-        const art = new orderSchema({
-            userid: x.userid,
-            artid: x.artid,
-          date:date,
-            artistId: x.artistId
-        })
-        art.save().then(data => {
-        }).catch(err => {
-           console.log(err);
-        })
-
-    })
-    
-    res.json({
+      res.json({
         status: 200,
         msg: "Inserted successfully",
+        data: data,
+      });
     })
-}
+    .catch((err) => {
+      res.json({
+        status: 500,
+        msg: "Data not Inserted",
+        Error: err,
+      });
+    });
+};
+
+
+// const addOrderFromCart = (req, res) => {
+
+//     let date = new Date()
+//     let cartitems=req.body.cartitems
+
+//     cartitems.map(x=>{
+
+    
+//         const art = new orderSchema({
+//             userid: x.userid,
+//             artid: x.artid,
+//           date:date,
+//             artistId: x.artistId
+//         })
+//         art.save().then(data => {
+//         }).catch(err => {
+//            console.log(err);
+//         })
+
+//     })
+    
+//     res.json({
+//         status: 200,
+//         msg: "Inserted successfully",
+//     })
+// }
+
+
+const addOrderFromCart = async (req, res) => {
+  let date = new Date();
+  let cartitems = req.body.cartitems;
+
+  try {
+    await Promise.all(
+      cartitems.map(async (x) => {
+        const art = new orderSchema({
+          userid: x.userid,
+          artid: x.artid,
+          date: date,
+          artistId: x.artistId,
+        });
+
+        await art.save();
+        await artworks.findByIdAndUpdate(x.artid, { status: "sold" });
+      })
+    );
+
+    res.json({
+      status: 200,
+      msg: "Inserted successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      status: 500,
+      msg: "Data not Inserted",
+      Error: err,
+    });
+  }
+};
+
 
 //View all cart
 
