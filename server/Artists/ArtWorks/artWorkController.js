@@ -18,6 +18,7 @@ const addartworks=(req,res)=>{
     const art=new artworks({
       name:req.body.name,
       price:req.body.price,
+      category:req.body.category,
       file:req.file,
       artistId:req.body.artistId
     })

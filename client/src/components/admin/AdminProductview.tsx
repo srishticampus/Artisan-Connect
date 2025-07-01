@@ -54,6 +54,7 @@ const AdminProductview = ({ url }) => {
                   <th className="text-left py-3 px-4">Art Name</th>
                   <th className="text-left py-3 px-4">Artist Name</th>
                   <th className="text-left py-3 px-4">Price</th>
+                                    <th className="text-left py-3 px-4">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,6 +72,7 @@ const AdminProductview = ({ url }) => {
                       <td className="py-3 px-4">{art.name || "N/A"}</td>
                       <td className="py-3 px-4">{art.artistId?.firstname || "N/A"}</td>
                       <td className="py-3 px-4">{art.price || "N/A"}</td>
+                      <td className="py-3 px-4">{art.status || "N/A"}</td>
                     </tr>
                   ))
                 ) : (
