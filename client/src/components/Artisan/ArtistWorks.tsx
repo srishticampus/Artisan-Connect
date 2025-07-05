@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import axiosInstance from "../../BaseApi/baseurl";
+import axios from "axios";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import ArtisanNavbar from "../navigation/ArtisanNavbar";
@@ -51,6 +52,40 @@ function ArtistWorks({ url }) {
     const { name, value, files } = e.target;
     const val = name === "image" ? files[0] : value;
     setAddwork({ ...addwork, [name]: val });
+  };
+
+  const predictPrice = async (e) => {
+    e.preventDefault();
+
+    const finalName = addwork.name === "other" ? addwork.customName : addwork.name;
+    const finalCategory = addwork.category === "other" ? addwork.customCategory : addwork.category;
+
+    if (!finalName || !finalCategory) {
+      toast.error("Please select both name and category for prediction.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:4004/predict", {
+        Name: finalName,
+        Category: finalCategory,
+      });
+
+      console.log("Prediction response:", response.data);
+
+      if (response?.data?.data?.price) {
+        setAddwork((prev) => ({
+          ...prev,
+            price: Math.floor(response.data.data.price),
+        }));
+        toast.success("Price predicted successfully");
+      } else {
+        toast.error("Prediction failed");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error predicting price");
+    }
   };
 
   const submitfn = (e) => {
@@ -123,7 +158,6 @@ function ArtistWorks({ url }) {
           <div className="bg-white rounded-xl shadow-lg p-6 mb-10">
             <h1 className="text-2xl font-semibold text-[#5046f4] mb-4">Add New Artwork</h1>
             <form onSubmit={submitfn} className="space-y-4">
-
               {/* Name Dropdown */}
               <select
                 name="name"
@@ -174,6 +208,15 @@ function ArtistWorks({ url }) {
                   className="w-full px-4 py-2 border border-[#5046f4] rounded-md"
                 />
               )}
+
+              {/* Predict Button */}
+              <button
+                type="button"
+                onClick={predictPrice}
+                className="bg-[#3da9f4] text-white px-6 py-2 rounded-md hover:bg-[#2d82c6] transition"
+              >
+                Predict Price
+              </button>
 
               {/* Price */}
               <input
@@ -234,7 +277,7 @@ function ArtistWorks({ url }) {
                         </td>
                         <td>₹{a?.price}</td>
                         <td>{a?.name}</td>
-                         <td>{a?.status}</td>
+                        <td>{a?.status}</td>
                         <td>
                           <Link
                             to={`/artist_editprofile/${a._id}`}
@@ -247,7 +290,7 @@ function ArtistWorks({ url }) {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="5">No data available</td>
+                      <td colSpan="6">No data available</td>
                     </tr>
                   )}
                 </tbody>
