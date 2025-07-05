@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("./dbConnection");
 const route = require("./routes");
 const { exec } = require('child_process');
+const { spawn } = require('child_process');
 
 const app = express();
 
@@ -12,56 +13,60 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/upload`));
-
-app.post('/recommend', (req, res) => {
-    const inputData = req.body;
-
-    // Validate input data
-    if (!inputData || !inputData.type || !inputData.query) {
-        return res.status(400).json({ error: 'Missing type or query field' });
-    }
-    if (inputData.type !== 'title' && inputData.type !== 'author') {
-        return res.status(400).json({ error: `Invalid type: ${inputData.type}. Must be 'title' or 'author'` });
-    }
-
-    // Log input data for debugging
-    console.log('Received input:', inputData);
-    const jsonInput = JSON.stringify(inputData);
-    console.log('Sending to Python:', jsonInput);
-
-    // Run Python script using child_process
-    const pythonPath = 'C:\\Users\\shiha\\AppData\\Local\\Programs\\Python\\Python311\\python.exe';
-    const escapedJsonInput = jsonInput.replace(/"/g, '\\"');
-    const command = `"${pythonPath}" recommend.py "${escapedJsonInput}"`;
-    console.log('Executing command:', command);
-    exec(command, { timeout: 60000, cwd: __dirname }, (err, stdout, stderr) => {
-        if (err) {
-            console.error('Exec error:', err);
-            console.error('Python stderr:', stderr);
-            console.error('Python stdout:', stdout);
-            return res.status(500).json({ error: 'Recommendation failed', details: err.message, stderr, stdout });
-        }
-        try {
-            console.log('Python stdout:', stdout);
-            const lines = stdout.trim().split('\n');
-            const jsonLine = lines.find(line => line.startsWith('{') && line.endsWith('}'));
-            if (!jsonLine) {
-                throw new Error('No valid JSON output found');
-            }
-            const result = JSON.parse(jsonLine);
-            console.log('Parsed result:', result);
-            res.json({ data: result });
-        } catch (parseErr) {
-            console.error('Parse error:', parseErr);
-            console.error('Raw output:', stdout);
-            res.status(500).json({ error: 'Failed to parse recommendation result', details: parseErr.message, rawOutput: stdout });
-        }
-    });
-});
-
 // Routes
 app.use("/atrisan_connect", route);
+app.post('/predict', (req, res) => {
+    const inputData = req.body;
 
+    // Validate input
+    const requiredFields = ["Name", "Category"];
+    const missingFields = requiredFields.filter(field => !(field in inputData));
+    if (missingFields.length > 0) {
+        return res.status(400).json({ error: `Missing fields: ${missingFields.join(', ')}` });
+    }
+
+    console.log('Sending input to Python:', inputData);
+
+    const pythonProcess = spawn(
+        'C:\\Users\\mepra\\AppData\\Local\\Programs\\Python\\Python313\\python.exe',
+        ['predict.py'],
+        { cwd: __dirname }
+    );
+
+    let output = '';
+    let error = '';
+
+    pythonProcess.stdout.on('data', (data) => {
+        output += data.toString();
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+        error += data.toString();
+    });
+
+    pythonProcess.on('close', (code) => {
+        if (code !== 0) {
+            console.error('Python error:', error);
+            return res.status(500).json({ error: 'Python script failed', stderr: error });
+        }
+
+        try {
+            const lines = output.trim().split('\n');
+            const jsonLine = lines.find(line => line.startsWith('{') && line.endsWith('}'));
+            if (!jsonLine) throw new Error('No valid JSON output found');
+
+            const result = JSON.parse(jsonLine);
+            res.json({ data: result });
+        } catch (err) {
+            console.error('Failed to parse output:', output);
+            res.status(500).json({ error: 'Invalid JSON output', rawOutput: output });
+        }
+    });
+
+    // Send the input JSON via stdin
+    pythonProcess.stdin.write(JSON.stringify(inputData));
+    pythonProcess.stdin.end();
+});
 // Start Server
 const PORT = 4004;
 app.listen(PORT, () => {
