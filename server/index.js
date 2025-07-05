@@ -28,7 +28,7 @@ app.post('/predict', (req, res) => {
     console.log('Sending input to Python:', inputData);
 
     const pythonProcess = spawn(
-        'C:\\Users\\mepra\\AppData\\Local\\Programs\\Python\\Python313\\python.exe',
+        'C:\\Python311\\python.exe',
         ['predict.py'],
         { cwd: __dirname }
     );
